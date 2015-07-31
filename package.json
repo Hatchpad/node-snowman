@@ -1,0 +1,15 @@
+{
+  "name": "node-snowman",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "callback",
+    "promise"
+  ],
+  "author": "Jason Mullins <jason.mullins@hatchpad.io> (http://www.hatchpad.io)",
+  "license": "ISC"
+}
