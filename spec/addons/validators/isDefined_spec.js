@@ -1,5 +1,5 @@
 var Snowman = require('../../../.');
-var isDefinedValidator = Snowman.addons.validators.isDefined;
+var isDefinedValidator = require('../../../src/addons/validators/isDefined')();
 
 describe('isDefined', function() {
 

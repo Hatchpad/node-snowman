@@ -1,5 +1,5 @@
 var Snowman = require('../../../.');
-var isDefinedAndNotNullValidator = Snowman.addons.validators.isDefinedAndNotNull;
+var isDefinedAndNotNullValidator = require('../../../src/addons/validators/isDefinedAndNotNull')();
 
 describe('isDefinedAndNotNull', function() {
 

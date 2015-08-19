@@ -1,5 +1,5 @@
 var Snowman = require('../../../.');
-var isRequiredValidator = Snowman.addons.validators.isRequired;
+var isRequiredValidator = require('../../../src/addons/validators/isRequired')();
 
 describe('isRequired', function() {
 

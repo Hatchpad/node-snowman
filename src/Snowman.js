@@ -127,11 +127,4 @@ Snowman.prototype.getData = function() {
   return this.data_;
 };
 
-Snowman.addons = {};
-Snowman.addons.validators = {};
-Snowman.addons.validators.isRequired = require('./addons/validators/isRequired')();
-Snowman.addons.validators.isDefined = require('./addons/validators/isDefined')();
-Snowman.addons.validators.isDefinedAndNotNull = require('./addons/validators/isDefinedAndNotNull')();
-Snowman.addons.validators.isEmail = require('./addons/validators/isEmail')();
-
 module.exports = Snowman;

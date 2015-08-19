@@ -1,5 +1,5 @@
 var Snowman = require('../../../.');
-var isEmailValidator = Snowman.addons.validators.isEmail;
+var isEmailValidator = require('../../../src/addons/validators/isEmail')();
 
 describe('isEmail', function() {
 
