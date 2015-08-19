@@ -47,7 +47,7 @@ describe('Snowman data accumulation', function() {
     snowman
     .pipe(sb1)
     .pipe(sb2)
-    .execute(resultObj.onResolve);
+    .exec(resultObj.onResolve);
     expect(snowman.getData()).toEqual({sb1:'test1',sb2:'test2'});
     expect(resultObj.onResolve).toHaveBeenCalled();
   });
@@ -55,13 +55,13 @@ describe('Snowman data accumulation', function() {
   it('throws an error if onResolve is not a function', function() {
     snowman
     .pipe(sb1);
-    expect( function() { snowman.execute('non-function');} ).toThrow(new Error('onResolve must be a function'));
+    expect( function() { snowman.exec('non-function');} ).toThrow(new Error('onResolve must be a function'));
   });
 
   it('throws an error if onReject is not a function', function() {
     snowman
     .pipe(sb1);
-    expect( function() { snowman.execute(null, 'non-function');} ).toThrow(new Error('onReject must be a function'));
+    expect( function() { snowman.exec(null, 'non-function');} ).toThrow(new Error('onReject must be a function'));
   });
 
   it('accumulates the data and steps out on reject', function() {
@@ -69,7 +69,7 @@ describe('Snowman data accumulation', function() {
     .pipe(sb1)
     .pipe(sb3)
     .pipe(sb2)
-    .execute(resultObj.onResolve, resultObj.onReject);
+    .exec(resultObj.onResolve, resultObj.onReject);
     expect(snowman.getData()).toEqual({sb1:'test1',sb3:'test3'});
     expect(resultObj.onResolve).not.toHaveBeenCalled();
     expect(resultObj.onReject).toHaveBeenCalled();

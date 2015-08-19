@@ -11,7 +11,7 @@ Snowman.prototype.pipe = function(snowball) {
   return this;
 };
 
-Snowman.prototype.execute = function(onResolve, onReject) {
+Snowman.prototype.exec = function(onResolve, onReject) {
   if (onResolve && (typeof onResolve != 'function')) {
     throw new Error('onResolve must be a function');
   }
