@@ -14,7 +14,7 @@ module.exports = function() {
       paths.forEach(function(path) {
         fullPath = root ? root + '.' + path : path;
         val = dot.pick(fullPath, data);
-        if (val !== null && val !== undefined) {
+        if (val !== null && val !== undefined && val !== '') {
           if (!usernameRegex.test(val)) {
             err = true;
             dot.str(errorPath + '.' + path, 'is not a valid username', data);

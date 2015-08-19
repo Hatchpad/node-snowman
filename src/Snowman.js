@@ -100,6 +100,7 @@ Snowman.prototype.exec = function(onResolve, onReject) {
   this.onReject_ = onReject;
   this.idx_ = -1;
   next.bind(this)();
+  return this;
 };
 
 Snowman.prototype.resolve = function() {
