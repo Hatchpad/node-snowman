@@ -19,7 +19,7 @@ describe('Snowman Init', function() {
 });
 
 describe('Snowman data accumulation', function() {
-  var dirball, sb1, sb2, resultObj;
+  var sb1, sb2, resultObj;
 
   beforeEach(function() {
     resultObj = {
