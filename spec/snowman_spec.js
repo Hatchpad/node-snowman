@@ -38,6 +38,10 @@ describe('Snowman data accumulation', function() {
       this.getData()['sb3'] = 'test3';
       this.reject();
     };
+    sb4 = function() {
+      this.getData()['sb4'] = 'test4';
+      this.resolve();
+    };
     spyOn(resultObj, 'onResolve');
     spyOn(resultObj, 'onReject');
     snowman = new Snowman();
@@ -64,7 +68,7 @@ describe('Snowman data accumulation', function() {
     expect( function() { snowman.exec(null, 'non-function');} ).toThrow(new Error('onReject must be a function'));
   });
 
-  it('accumulates the data and steps out on reject', function() {
+  it('accumulates the data and aborts on reject', function() {
     snowman
     .pipe(sb1)
     .pipe(sb3)
@@ -73,5 +77,20 @@ describe('Snowman data accumulation', function() {
     expect(snowman.getData()).toEqual({sb1:'test1',sb3:'test3'});
     expect(resultObj.onResolve).not.toHaveBeenCalled();
     expect(resultObj.onReject).toHaveBeenCalled();
+  });
+
+  describe('when abortOnReject is false', function() {
+    it('accumulates the data on subsequent steps until aboutOnReject is true', function() {
+      snowman
+      .pipe(sb3, {abortOnReject:false})
+      .pipe(sb1, {abortOnReject:false})
+      .pipe(sb2)
+      .pipe(sb4)
+      .exec(resultObj.onResolve, resultObj.onReject);
+      expect(snowman.getData()).toEqual({sb3:'test3', sb1:'test1', sb2: 'test2'});
+      expect(snowman.getData().sb4).toBe(undefined);
+      expect(resultObj.onResolve).not.toHaveBeenCalled();
+      expect(resultObj.onReject).toHaveBeenCalled();
+    });
   });
 });

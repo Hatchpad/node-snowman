@@ -4,11 +4,34 @@ var Snowman = function(data) {
     throw new Error('data must be an object');
   }
   this.snowballs_ = [];
+  this.snowballOptions_ = [];
+  this.rejected_ = false;
 };
 
-Snowman.prototype.pipe = function(snowball) {
+Snowman.prototype.pipe = function(snowball, options) {
+  var opts = {
+    abortOnReject: options && options.abortOnReject === false ? false : true
+  };
   this.snowballs_.push(snowball);
+  this.snowballOptions_.push(opts);
   return this;
+};
+
+var next = function() {
+  this.idx_++;
+  if (this.idx_ >= this.snowballs_.length) {
+    if (this.rejected_) {
+      if (this.onReject_) {
+        this.onReject_();
+      }
+    } else {
+      if (this.onResolve_) {
+        this.onResolve_();
+      }
+    }
+  } else {
+    this.snowballs_[this.idx_].bind(this)();
+  }
 };
 
 Snowman.prototype.exec = function(onResolve, onReject) {
@@ -21,23 +44,27 @@ Snowman.prototype.exec = function(onResolve, onReject) {
   this.onResolve_ = onResolve;
   this.onReject_ = onReject;
   this.idx_ = -1;
-  this.resolve();
+  next.bind(this)();
 };
 
 Snowman.prototype.resolve = function() {
-  this.idx_++;
-  if (this.idx_ >= this.snowballs_.length) {
-    if (this.onResolve_) {
-      this.onResolve_();
+  if (this.rejected_ && this.snowballOptions_[this.idx_].abortOnReject) {
+    if (this.onReject_) {
+      this.onReject_();
     }
   } else {
-    this.snowballs_[this.idx_].bind(this)();
+    next.bind(this)();
   }
 };
 
 Snowman.prototype.reject = function() {
-  if (this.onReject_) {
-    this.onReject_();
+  this.rejected_ = true;
+  if (this.snowballOptions_[this.idx_].abortOnReject) {
+    if (this.onReject_) {
+      this.onReject_();
+    }
+  } else {
+    next.bind(this)();
   }
 };
 
