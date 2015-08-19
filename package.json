@@ -11,5 +11,8 @@
     "promise"
   ],
   "author": "Jason Mullins <jason.mullins@hatchpad.io> (http://www.hatchpad.io)",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "dot-object": "^1.1.0"
+  }
 }
