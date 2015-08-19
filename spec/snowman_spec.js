@@ -42,6 +42,10 @@ describe('Snowman data accumulation', function() {
       this.getData()['sb4'] = 'test4';
       this.resolve();
     };
+    sb5 = function() {
+      this.getData()['sb5'] = 'test5';
+      this.resolve();
+    };
     spyOn(resultObj, 'onResolve');
     spyOn(resultObj, 'onReject');
     snowman = new Snowman();
@@ -91,6 +95,61 @@ describe('Snowman data accumulation', function() {
       expect(snowman.getData().sb4).toBe(undefined);
       expect(resultObj.onResolve).not.toHaveBeenCalled();
       expect(resultObj.onReject).toHaveBeenCalled();
+    });
+  });
+
+  describe('async', function() {
+    it('handles snowball arrays correctly', function() {
+      snowman
+      .pipe(sb1)
+      .pipe([sb2, sb4])
+      .pipe(sb5)
+      .exec(resultObj.onResolve, resultObj.onReject);
+      expect(snowman.getData()).toEqual({sb1:'test1', sb2:'test2', sb4:'test4', sb5:'test5'});
+      expect(resultObj.onResolve).toHaveBeenCalled();
+      expect(resultObj.onReject).not.toHaveBeenCalled();
+    });
+
+    it('rejects snowball arrays correctly', function() {
+      snowman
+      .pipe(sb1)
+      .pipe([sb3, sb4])
+      .pipe(sb5)
+      .exec(resultObj.onResolve, resultObj.onReject);
+      expect(snowman.getData()).toEqual({sb1:'test1', sb3:'test3', sb4:'test4'});
+      expect(resultObj.onResolve).not.toHaveBeenCalled();
+      expect(resultObj.onReject).toHaveBeenCalled();
+    });
+  });
+
+  describe('skip', function() {
+    it('skips correctly', function() {
+      var skipFunc = function() {
+        return this.getData().sb2 === 'test2';
+      };
+      snowman
+      .pipe(sb1, {skip:skipFunc})
+      .pipe(sb2)
+      .pipe(sb4, {skip:skipFunc})
+      .pipe(sb5)
+      .exec(resultObj.onResolve, resultObj.onReject);
+      expect(snowman.getData()).toEqual({sb1:'test1', sb2:'test2', sb5:'test5'});
+      expect(resultObj.onResolve).toHaveBeenCalled();
+      expect(resultObj.onReject).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('nested snowmen', function() {
+    it('nests the snowmen', function() {
+      var snowman2 = new Snowman().pipe(sb2).pipe(sb4);
+      snowman
+      .pipe(sb1)
+      .pipe(snowman2)
+      .pipe(sb5)
+      .exec(resultObj.onResolve, resultObj.onReject);
+      expect(snowman.getData()).toEqual({sb1:'test1', sb2:'test2', sb4:'test4', sb5:'test5'});
+      expect(resultObj.onResolve).toHaveBeenCalled();
+      expect(resultObj.onReject).not.toHaveBeenCalled();
     });
   });
 });
