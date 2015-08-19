@@ -1,25 +1,25 @@
-var Snowman = require('../');
+var Dirtball = require('../');
 
-describe('Snowman Init', function() {
-  var snowman;
+describe('Dirtball Init', function() {
+  var dirtball;
 
   it('should initialize the data to empty object', function () {
-    snowman = new Snowman();
-    expect(snowman.getData()).toEqual({});
+    dirtball = new Dirtball();
+    expect(dirtball.getData()).toEqual({});
   });
 
   it('should initialize the data to passed parameter', function () {
-    snowman = new Snowman({'test': 'data'});
-    expect(snowman.getData()).toEqual({'test': 'data'});
+    dirtball = new Dirtball({'test': 'data'});
+    expect(dirtball.getData()).toEqual({'test': 'data'});
   });
 
   it('should throw an exception if data is not object', function () {
-    expect( function() { new Snowman('test-data');} ).toThrow(new Error('data must be an object'));
+    expect( function() { new Dirtball('test-data');} ).toThrow(new Error('data must be an object'));
   });
 });
 
-describe('Snowman data accumulation', function() {
-  var snowman, sb1, sb2, resultObj;
+describe('Dirtball data accumulation', function() {
+  var dirball, sb1, sb2, resultObj;
 
   beforeEach(function() {
     resultObj = {
@@ -48,75 +48,75 @@ describe('Snowman data accumulation', function() {
     };
     spyOn(resultObj, 'onResolve');
     spyOn(resultObj, 'onReject');
-    snowman = new Snowman();
+    dirtball = new Dirtball();
   });
 
   it('accumulates the data and calls onResolve', function() {
-    snowman
+    dirtball
     .pipe(sb1)
     .pipe(sb2)
     .exec(resultObj.onResolve);
-    expect(snowman.getData()).toEqual({sb1:'test1',sb2:'test2'});
+    expect(dirtball.getData()).toEqual({sb1:'test1',sb2:'test2'});
     expect(resultObj.onResolve).toHaveBeenCalled();
   });
 
   it('throws an error if onResolve is not a function', function() {
-    snowman
+    dirtball
     .pipe(sb1);
-    expect( function() { snowman.exec('non-function');} ).toThrow(new Error('onResolve must be a function'));
+    expect( function() { dirtball.exec('non-function');} ).toThrow(new Error('onResolve must be a function'));
   });
 
   it('throws an error if onReject is not a function', function() {
-    snowman
+    dirtball
     .pipe(sb1);
-    expect( function() { snowman.exec(null, 'non-function');} ).toThrow(new Error('onReject must be a function'));
+    expect( function() { dirtball.exec(null, 'non-function');} ).toThrow(new Error('onReject must be a function'));
   });
 
   it('accumulates the data and aborts on reject', function() {
-    snowman
+    dirtball
     .pipe(sb1)
     .pipe(sb3)
     .pipe(sb2)
     .exec(resultObj.onResolve, resultObj.onReject);
-    expect(snowman.getData()).toEqual({sb1:'test1',sb3:'test3'});
+    expect(dirtball.getData()).toEqual({sb1:'test1',sb3:'test3'});
     expect(resultObj.onResolve).not.toHaveBeenCalled();
     expect(resultObj.onReject).toHaveBeenCalled();
   });
 
   describe('when abortOnReject is false', function() {
     it('accumulates the data on subsequent steps until aboutOnReject is true', function() {
-      snowman
+      dirtball
       .pipe(sb3, {abortOnReject:false})
       .pipe(sb1, {abortOnReject:false})
       .pipe(sb2)
       .pipe(sb4)
       .exec(resultObj.onResolve, resultObj.onReject);
-      expect(snowman.getData()).toEqual({sb3:'test3', sb1:'test1', sb2: 'test2'});
-      expect(snowman.getData().sb4).toBe(undefined);
+      expect(dirtball.getData()).toEqual({sb3:'test3', sb1:'test1', sb2: 'test2'});
+      expect(dirtball.getData().sb4).toBe(undefined);
       expect(resultObj.onResolve).not.toHaveBeenCalled();
       expect(resultObj.onReject).toHaveBeenCalled();
     });
   });
 
   describe('async', function() {
-    it('handles snowball arrays correctly', function() {
-      snowman
+    it('handles arrays correctly', function() {
+      dirtball
       .pipe(sb1)
       .pipe([sb2, sb4])
       .pipe(sb5)
       .exec(resultObj.onResolve, resultObj.onReject);
-      expect(snowman.getData()).toEqual({sb1:'test1', sb2:'test2', sb4:'test4', sb5:'test5'});
+      expect(dirtball.getData()).toEqual({sb1:'test1', sb2:'test2', sb4:'test4', sb5:'test5'});
       expect(resultObj.onResolve).toHaveBeenCalled();
       expect(resultObj.onReject).not.toHaveBeenCalled();
     });
 
-    it('rejects snowball arrays correctly', function() {
-      snowman
+    it('rejects arrays correctly', function() {
+      dirtball
       .pipe(sb1)
       .pipe([sb3, sb4])
       .pipe(sb5)
       .exec(resultObj.onResolve, resultObj.onReject);
-      expect(snowman.getData()).toEqual({sb1:'test1', sb3:'test3', sb4:'test4'});
+      expect(dirtball.getData()).toEqual({sb1:'test1', sb3:'test3', sb4:'test4'});
       expect(resultObj.onResolve).not.toHaveBeenCalled();
       expect(resultObj.onReject).toHaveBeenCalled();
     });
@@ -127,27 +127,27 @@ describe('Snowman data accumulation', function() {
       var skipFunc = function() {
         return this.getData().sb2 === 'test2';
       };
-      snowman
+      dirtball
       .pipe(sb1, {skip:skipFunc})
       .pipe(sb2)
       .pipe(sb4, {skip:skipFunc})
       .pipe(sb5)
       .exec(resultObj.onResolve, resultObj.onReject);
-      expect(snowman.getData()).toEqual({sb1:'test1', sb2:'test2', sb5:'test5'});
+      expect(dirtball.getData()).toEqual({sb1:'test1', sb2:'test2', sb5:'test5'});
       expect(resultObj.onResolve).toHaveBeenCalled();
       expect(resultObj.onReject).not.toHaveBeenCalled();
     });
   });
 
-  describe('nested snowmen', function() {
-    it('nests the snowmen', function() {
-      var snowman2 = new Snowman().pipe(sb2).pipe(sb4);
-      snowman
+  describe('nested dirtball', function() {
+    it('nests the dirtball', function() {
+      var dirtball2 = new Dirtball().pipe(sb2).pipe(sb4);
+      dirtball
       .pipe(sb1)
-      .pipe(snowman2)
+      .pipe(dirtball2)
       .pipe(sb5)
       .exec(resultObj.onResolve, resultObj.onReject);
-      expect(snowman.getData()).toEqual({sb1:'test1', sb2:'test2', sb4:'test4', sb5:'test5'});
+      expect(dirtball.getData()).toEqual({sb1:'test1', sb2:'test2', sb4:'test4', sb5:'test5'});
       expect(resultObj.onResolve).toHaveBeenCalled();
       expect(resultObj.onReject).not.toHaveBeenCalled();
     });

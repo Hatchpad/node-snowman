@@ -1,16 +1,16 @@
-var Snowman = require('../../../.');
-var isDefinedAndNotNullValidator = Snowman.addons.validators.isDefinedAndNotNull;
+var Dirtball = require('../../../.');
+var isDefinedAndNotNullValidator = Dirtball.addons.validators.isDefinedAndNotNull;
 
 describe('isDefinedAndNotNull', function() {
 
-  var snowman, execSpy;
+  var dirtball, execSpy;
 
   beforeEach(function() {
     execSpy = {
       onResolve:function() {},
       onReject:function() {}
     };
-    snowman = new Snowman({
+    dirtball = new Dirtball({
       _params:{
         username:'john',
         email:'doe',
@@ -30,7 +30,7 @@ describe('isDefinedAndNotNull', function() {
 
   it('succeeds', function() {
     var isDefinedAndNotNull = isDefinedAndNotNullValidator(['username', 'email', 'company.name', 'age', 'felonies'], {root:'_params'});
-    snowman
+    dirtball
     .pipe(isDefinedAndNotNull)
     .exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onResolve).toHaveBeenCalled();
@@ -39,7 +39,7 @@ describe('isDefinedAndNotNull', function() {
 
   it('succeeds without root', function() {
     var isDefinedAndNotNull = isDefinedAndNotNullValidator(['_params.username', '_params.email', '_params.company.name', '_params.age', '_params.felonies']);
-    snowman
+    dirtball
     .pipe(isDefinedAndNotNull)
     .exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onResolve).toHaveBeenCalled();
@@ -48,7 +48,7 @@ describe('isDefinedAndNotNull', function() {
 
   it('succeeds when the field is empty string', function() {
     var isDefinedAndNotNull = isDefinedAndNotNullValidator(['fname'], {root:'_params'});
-    snowman
+    dirtball
     .pipe(isDefinedAndNotNull)
     .exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onResolve).toHaveBeenCalled();
@@ -57,61 +57,61 @@ describe('isDefinedAndNotNull', function() {
 
   it('fails when the field is null', function() {
     var isDefinedAndNotNull = isDefinedAndNotNullValidator(['ssn'], {root:'_params'});
-    snowman
+    dirtball
     .pipe(isDefinedAndNotNull)
     .exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onResolve).not.toHaveBeenCalled();
     expect(execSpy.onReject).toHaveBeenCalled();
-    expect(snowman.getData()._errors).toEqual({ssn:'is undefined or null'});
+    expect(dirtball.getData()._errors).toEqual({ssn:'is undefined or null'});
   });
 
   it('fails when the field is undefined', function() {
     var isDefinedAndNotNull = isDefinedAndNotNullValidator(['dob'], {root:'_params'});
-    snowman
+    dirtball
     .pipe(isDefinedAndNotNull)
     .exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onResolve).not.toHaveBeenCalled();
     expect(execSpy.onReject).toHaveBeenCalled();
-    expect(snowman.getData()._errors).toEqual({dob:'is undefined or null'});
+    expect(dirtball.getData()._errors).toEqual({dob:'is undefined or null'});
   });
 
   it('fails when the field is undefined and not present', function() {
     var isDefinedAndNotNull = isDefinedAndNotNullValidator(['random'], {root:'_params'});
-    snowman
+    dirtball
     .pipe(isDefinedAndNotNull)
     .exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onResolve).not.toHaveBeenCalled();
     expect(execSpy.onReject).toHaveBeenCalled();
-    expect(snowman.getData()._errors).toEqual({random:'is undefined or null'});
+    expect(dirtball.getData()._errors).toEqual({random:'is undefined or null'});
   });
 
   it('fails when the field is undefined and not present and nested', function() {
     var isDefinedAndNotNull = isDefinedAndNotNullValidator(['random.data'], {root:'_params'});
-    snowman
+    dirtball
     .pipe(isDefinedAndNotNull)
     .exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onResolve).not.toHaveBeenCalled();
     expect(execSpy.onReject).toHaveBeenCalled();
-    expect(snowman.getData()._errors).toEqual({random:{data:'is undefined or null'}});
+    expect(dirtball.getData()._errors).toEqual({random:{data:'is undefined or null'}});
   });
 
   it('puts the errors in a custom place', function() {
     var isDefinedAndNotNull = isDefinedAndNotNullValidator(['ssn'], {root:'_params', errorPath: 'errMap'});
-    snowman
+    dirtball
     .pipe(isDefinedAndNotNull)
     .exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onResolve).not.toHaveBeenCalled();
     expect(execSpy.onReject).toHaveBeenCalled();
-    expect(snowman.getData().errMap).toEqual({ssn:'is undefined or null'});
+    expect(dirtball.getData().errMap).toEqual({ssn:'is undefined or null'});
   });
 
   it('generates errors for multiple fields', function() {
     var isDefinedAndNotNull = isDefinedAndNotNullValidator(['username', 'ssn', 'email', 'dob', 'fname'], {root:'_params'});
-    snowman
+    dirtball
     .pipe(isDefinedAndNotNull)
     .exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onResolve).not.toHaveBeenCalled();
     expect(execSpy.onReject).toHaveBeenCalled();
-    expect(snowman.getData()._errors).toEqual({ssn:'is undefined or null',dob:'is undefined or null'});
+    expect(dirtball.getData()._errors).toEqual({ssn:'is undefined or null',dob:'is undefined or null'});
   });
 });
