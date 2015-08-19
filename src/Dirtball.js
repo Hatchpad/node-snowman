@@ -132,5 +132,6 @@ Dirtball.addons.validators = {};
 Dirtball.addons.validators.isRequired = require('./addons/validators/isRequired')();
 Dirtball.addons.validators.isDefined = require('./addons/validators/isDefined')();
 Dirtball.addons.validators.isDefinedAndNotNull = require('./addons/validators/isDefinedAndNotNull')();
+Dirtball.addons.validators.isEmail = require('./addons/validators/isEmail')();
 
 module.exports = Dirtball;
