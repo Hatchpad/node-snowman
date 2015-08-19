@@ -1,16 +1,16 @@
-var Dirtball = require('../../../.');
-var isEmailValidator = Dirtball.addons.validators.isEmail;
+var Snowman = require('../../../.');
+var isEmailValidator = Snowman.addons.validators.isEmail;
 
 describe('isEmail', function() {
 
-  var dirtball, execSpy;
+  var snowman, execSpy;
 
   beforeEach(function() {
     execSpy = {
       onResolve:function() {},
       onReject:function() {}
     };
-    dirtball = new Dirtball({
+    snowman = new Snowman({
       _params:{
         em1: null,
         em2: undefined,
@@ -25,7 +25,7 @@ describe('isEmail', function() {
 
   it('succeeds', function() {
     var isEmail = isEmailValidator(['em1', 'em2', 'em3', 'em4'], {root:'_params'});
-    dirtball
+    snowman
     .pipe(isEmail)
     .exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onResolve).toHaveBeenCalled();
@@ -34,11 +34,11 @@ describe('isEmail', function() {
 
   it('fails', function() {
     var isEmail = isEmailValidator(['em1', 'em2', 'em3', 'em4', 'em5'], {root:'_params'});
-    dirtball
+    snowman
     .pipe(isEmail)
     .exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onResolve).not.toHaveBeenCalled();
     expect(execSpy.onReject).toHaveBeenCalled();
-    expect(dirtball.getData()._errors).toEqual({em5:'is not a valid email address'});
+    expect(snowman.getData()._errors).toEqual({em5:'is not a valid email address'});
   });
 });

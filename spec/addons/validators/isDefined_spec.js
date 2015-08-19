@@ -1,16 +1,16 @@
-var Dirtball = require('../../../.');
-var isDefinedValidator = Dirtball.addons.validators.isDefined;
+var Snowman = require('../../../.');
+var isDefinedValidator = Snowman.addons.validators.isDefined;
 
 describe('isDefined', function() {
 
-  var dirtball, execSpy;
+  var snowman, execSpy;
 
   beforeEach(function() {
     execSpy = {
       onResolve:function() {},
       onReject:function() {}
     };
-    dirtball = new Dirtball({
+    snowman = new Snowman({
       _params:{
         username:'john',
         email:'doe',
@@ -30,7 +30,7 @@ describe('isDefined', function() {
 
   it('succeeds', function() {
     var isDefined = isDefinedValidator(['username', 'email', 'company.name', 'age', 'felonies'], {root:'_params'});
-    dirtball
+    snowman
     .pipe(isDefined)
     .exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onResolve).toHaveBeenCalled();
@@ -39,7 +39,7 @@ describe('isDefined', function() {
 
   it('succeeds without root', function() {
     var isDefined = isDefinedValidator(['_params.username', '_params.email', '_params.company.name', '_params.age', '_params.felonies']);
-    dirtball
+    snowman
     .pipe(isDefined)
     .exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onResolve).toHaveBeenCalled();
@@ -48,7 +48,7 @@ describe('isDefined', function() {
 
   it('succeeds when the field is empty string', function() {
     var isDefined = isDefinedValidator(['fname'], {root:'_params'});
-    dirtball
+    snowman
     .pipe(isDefined)
     .exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onResolve).toHaveBeenCalled();
@@ -57,7 +57,7 @@ describe('isDefined', function() {
 
   it('succeeds when the field is null', function() {
     var isDefined = isDefinedValidator(['ssn'], {root:'_params'});
-    dirtball
+    snowman
     .pipe(isDefined)
     .exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onResolve).toHaveBeenCalled();
@@ -66,51 +66,51 @@ describe('isDefined', function() {
 
   it('fails when the field is undefined', function() {
     var isDefined = isDefinedValidator(['dob'], {root:'_params'});
-    dirtball
+    snowman
     .pipe(isDefined)
     .exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onResolve).not.toHaveBeenCalled();
     expect(execSpy.onReject).toHaveBeenCalled();
-    expect(dirtball.getData()._errors).toEqual({dob:'is undefined'});
+    expect(snowman.getData()._errors).toEqual({dob:'is undefined'});
   });
 
   it('fails when the field is undefined and not present', function() {
     var isDefined = isDefinedValidator(['random'], {root:'_params'});
-    dirtball
+    snowman
     .pipe(isDefined)
     .exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onResolve).not.toHaveBeenCalled();
     expect(execSpy.onReject).toHaveBeenCalled();
-    expect(dirtball.getData()._errors).toEqual({random:'is undefined'});
+    expect(snowman.getData()._errors).toEqual({random:'is undefined'});
   });
 
   it('fails when the field is undefined and not present and nested', function() {
     var isDefined = isDefinedValidator(['random.data'], {root:'_params'});
-    dirtball
+    snowman
     .pipe(isDefined)
     .exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onResolve).not.toHaveBeenCalled();
     expect(execSpy.onReject).toHaveBeenCalled();
-    expect(dirtball.getData()._errors).toEqual({random:{data:'is undefined'}});
+    expect(snowman.getData()._errors).toEqual({random:{data:'is undefined'}});
   });
 
   it('puts the errors in a custom place', function() {
     var isDefined = isDefinedValidator(['dob'], {root:'_params', errorPath: 'errMap'});
-    dirtball
+    snowman
     .pipe(isDefined)
     .exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onResolve).not.toHaveBeenCalled();
     expect(execSpy.onReject).toHaveBeenCalled();
-    expect(dirtball.getData().errMap).toEqual({dob:'is undefined'});
+    expect(snowman.getData().errMap).toEqual({dob:'is undefined'});
   });
 
   it('generates errors for multiple fields', function() {
     var isDefined = isDefinedValidator(['username', 'ssn', 'email', 'dob', 'fname', 'not_present'], {root:'_params'});
-    dirtball
+    snowman
     .pipe(isDefined)
     .exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onResolve).not.toHaveBeenCalled();
     expect(execSpy.onReject).toHaveBeenCalled();
-    expect(dirtball.getData()._errors).toEqual({dob:'is undefined', not_present:'is undefined'});
+    expect(snowman.getData()._errors).toEqual({dob:'is undefined', not_present:'is undefined'});
   });
 });

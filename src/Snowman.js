@@ -1,44 +1,44 @@
-var Dirtball = function(data) {
+var Snowman = function(data) {
   this.data_ = data || {};
   if (typeof this.data_ != 'object') {
     throw new Error('data must be an object');
   }
-  this.dirtwads_ = [];
-  this.dirtwadOptions_ = [];
+  this.snowballs_ = [];
+  this.snowballOptions_ = [];
   this.rejected_ = false;
 };
 
 /**
  * options = {skip:<function>==null, abortOnReject:boolean==true}
  */
-Dirtball.prototype.pipe = function(dirtwad, options) {
-  if (dirtwad instanceof Dirtball) {
-    dirtwad.dirtwads_.forEach(function(dw) {
-      this.dirtwads_.push(dw);
+Snowman.prototype.pipe = function(snowball, options) {
+  if (snowball instanceof Snowman) {
+    snowball.snowballs_.forEach(function(dw) {
+      this.snowballs_.push(dw);
     }.bind(this));
-    dirtwad.dirtwadOptions_.forEach(function(dwo) {
-      this.dirtwadOptions_.push(dwo);
+    snowball.snowballOptions_.forEach(function(dwo) {
+      this.snowballOptions_.push(dwo);
     }.bind(this));
   } else {
     var opts = {
       abortOnReject: options && options.abortOnReject === false ? false : true,
       skip: options && options.skip ? options.skip : null
     };
-    this.dirtwads_.push(dirtwad);
-    this.dirtwadOptions_.push(opts);
+    this.snowballs_.push(snowball);
+    this.snowballOptions_.push(opts);
   }
   return this;
 };
 
 var spawnAsync = function() {
-  var dirtwadArr = this.dirtwads_[this.idx_];
+  var snowballArr = this.snowballs_[this.idx_];
   var resultCount = 0;
   var data = this.getData();
   var rejected = false;
   var self = this;
   var checkDone = function() {
-    if (resultCount == dirtwadArr.length) {
-      if (rejected && this.dirtwadOptions_[this.idx_].abortOnReject) {
+    if (resultCount == snowballArr.length) {
+      if (rejected && this.snowballOptions_[this.idx_].abortOnReject) {
         if (this.onReject_) {
           this.onReject_();
         }
@@ -61,14 +61,14 @@ var spawnAsync = function() {
       return data;
     }
   }
-  dirtwadArr.forEach(function(dirtwad) {
-    dirtwad.bind(asyncDirtwadHandler)();
+  snowballArr.forEach(function(snowball) {
+    snowball.bind(asyncDirtwadHandler)();
   });
 };
 
 var next = function() {
   this.idx_++;
-  if (this.idx_ >= this.dirtwads_.length) {
+  if (this.idx_ >= this.snowballs_.length) {
     if (this.rejected_) {
       if (this.onReject_) {
         this.onReject_();
@@ -79,17 +79,17 @@ var next = function() {
       }
     }
   } else {
-    if (this.dirtwadOptions_[this.idx_].skip && this.dirtwadOptions_[this.idx_].skip.bind(this)()) {
+    if (this.snowballOptions_[this.idx_].skip && this.snowballOptions_[this.idx_].skip.bind(this)()) {
       next.bind(this)();
-    } else if (Array.isArray(this.dirtwads_[this.idx_])) {
+    } else if (Array.isArray(this.snowballs_[this.idx_])) {
       spawnAsync.bind(this)();
     } else {
-      this.dirtwads_[this.idx_].bind(this)();
+      this.snowballs_[this.idx_].bind(this)();
     }
   }
 };
 
-Dirtball.prototype.exec = function(onResolve, onReject) {
+Snowman.prototype.exec = function(onResolve, onReject) {
   if (onResolve && (typeof onResolve != 'function')) {
     throw new Error('onResolve must be a function');
   }
@@ -102,8 +102,8 @@ Dirtball.prototype.exec = function(onResolve, onReject) {
   next.bind(this)();
 };
 
-Dirtball.prototype.resolve = function() {
-  if (this.rejected_ && this.dirtwadOptions_[this.idx_].abortOnReject) {
+Snowman.prototype.resolve = function() {
+  if (this.rejected_ && this.snowballOptions_[this.idx_].abortOnReject) {
     if (this.onReject_) {
       this.onReject_();
     }
@@ -112,9 +112,9 @@ Dirtball.prototype.resolve = function() {
   }
 };
 
-Dirtball.prototype.reject = function() {
+Snowman.prototype.reject = function() {
   this.rejected_ = true;
-  if (this.dirtwadOptions_[this.idx_].abortOnReject) {
+  if (this.snowballOptions_[this.idx_].abortOnReject) {
     if (this.onReject_) {
       this.onReject_();
     }
@@ -123,15 +123,15 @@ Dirtball.prototype.reject = function() {
   }
 };
 
-Dirtball.prototype.getData = function() {
+Snowman.prototype.getData = function() {
   return this.data_;
 };
 
-Dirtball.addons = {};
-Dirtball.addons.validators = {};
-Dirtball.addons.validators.isRequired = require('./addons/validators/isRequired')();
-Dirtball.addons.validators.isDefined = require('./addons/validators/isDefined')();
-Dirtball.addons.validators.isDefinedAndNotNull = require('./addons/validators/isDefinedAndNotNull')();
-Dirtball.addons.validators.isEmail = require('./addons/validators/isEmail')();
+Snowman.addons = {};
+Snowman.addons.validators = {};
+Snowman.addons.validators.isRequired = require('./addons/validators/isRequired')();
+Snowman.addons.validators.isDefined = require('./addons/validators/isDefined')();
+Snowman.addons.validators.isDefinedAndNotNull = require('./addons/validators/isDefinedAndNotNull')();
+Snowman.addons.validators.isEmail = require('./addons/validators/isEmail')();
 
-module.exports = Dirtball;
+module.exports = Snowman;

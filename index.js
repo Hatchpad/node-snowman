@@ -1,1 +1,1 @@
-module.exports = require('./src/Dirtball');
+module.exports = require('./src/Snowman');
