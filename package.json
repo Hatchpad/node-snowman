@@ -13,6 +13,7 @@
   "author": "Jason Mullins <jason.mullins@hatchpad.io> (http://www.hatchpad.io)",
   "license": "ISC",
   "dependencies": {
-    "dot-object": "^1.1.0"
+    "dot-object": "^1.1.0",
+    "password-strength": "0.0.1"
   }
 }
