@@ -30,6 +30,8 @@ Snowman.prototype.pipe = function(snowball, options) {
   return this;
 };
 
+Snowman.prototype.$ = Snowman.prototype.pipe;
+
 var spawnAsync = function() {
   var snowballArr = this.snowballs_[this.idx_];
   var resultCount = 0;
