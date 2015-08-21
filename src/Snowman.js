@@ -30,6 +30,17 @@ Snowman.prototype.pipe = function(snowball, options) {
   return this;
 };
 
+Snowman.prototype.do = function(func, options) {
+  var opts = {
+    abortOnReject: options && options.abortOnReject === false ? false : true,
+    skip: options && options.skip ? options.skip : null,
+    do: true
+  };
+  this.snowballs_.push(func);
+  this.snowballOptions_.push(opts);
+  return this;
+};
+
 Snowman.prototype.$ = Snowman.prototype.pipe;
 
 var spawnAsync = function() {
@@ -85,6 +96,9 @@ var next = function() {
       next.bind(this)();
     } else if (Array.isArray(this.snowballs_[this.idx_])) {
       spawnAsync.bind(this)();
+    } else if (this.snowballOptions_[this.idx_].do) {
+      this.snowballs_[this.idx_]();
+      next.bind(this)();
     } else {
       this.snowballs_[this.idx_].bind(this)();
     }

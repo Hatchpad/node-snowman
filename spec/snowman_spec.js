@@ -152,4 +152,25 @@ describe('Snowman data accumulation', function() {
       expect(resultObj.onReject).not.toHaveBeenCalled();
     });
   });
+
+  describe('do', function() {
+    it('executes do functions', function() {
+      var spyObj = {
+        doIt: function() {}
+      };
+      var doFunc = function() {
+        spyObj.doIt();
+      };
+      spyOn(spyObj, 'doIt');
+      snowman
+      .$(sb1)
+      .do(doFunc)
+      .$(sb2)
+      .exec(resultObj.onResolve, resultObj.onReject);
+      expect(snowman.getData()).toEqual({sb1:'test1', sb2:'test2'});
+      expect(resultObj.onResolve).toHaveBeenCalled();
+      expect(resultObj.onReject).not.toHaveBeenCalled();
+      expect(spyObj.doIt).toHaveBeenCalled();
+    });
+  });
 });
