@@ -1,5 +1,5 @@
 var Snowman = require('../../../.');
-var isRequiredValidator = require('../../../src/addons/validators/isRequired')();
+var isRequiredValidator = require('../../../src/addons/validators/isRequired');
 
 describe('isRequired', function() {
 
@@ -38,7 +38,7 @@ describe('isRequired', function() {
   });
 
   it('succeeds without root', function() {
-    var isRequired = isRequiredValidator(['_params.username', '_params.email', '_params.company.name', '_params.age', '_params.felonies']);
+    var isRequired = isRequiredValidator(['_params.username', '_params.email', '_params.company.name', '_params.age', '_params.felonies'], {root: null});
     snowman
     .pipe(isRequired)
     .exec(execSpy.onResolve, execSpy.onReject);
