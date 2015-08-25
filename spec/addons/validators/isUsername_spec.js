@@ -1,5 +1,5 @@
 var Snowman = require('../../../.');
-var isUsernameValidator = require('../../../src/addons/validators/isUsername')();
+var isUsernameValidator = require('../../../src/addons/validators/isUsername');
 
 describe('isEmail', function() {
 

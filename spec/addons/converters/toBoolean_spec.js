@@ -1,5 +1,5 @@
 var Snowman = require('../../../.');
-var toBooleanConverter = require('../../../src/addons/converters/toBoolean')();
+var toBooleanConverter = require('../../../src/addons/converters/toBoolean');
 
 describe('toBoolean', function() {
 
