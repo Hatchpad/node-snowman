@@ -14,7 +14,10 @@ module.exports = function(pathOrPaths, options) {
       fullPath = root ? root + '.' + path : path;
       val = dot.pick(fullPath, data);
       if (val !== null && val !== undefined && val !== '') {
-        if (!usernameRegex.test(val)) {
+        if (val.length < 4) {
+          err = true;
+          dot.str(errorPath + '.' + path, 'is too short', data);
+        } else if (!usernameRegex.test(val)) {
           err = true;
           dot.str(errorPath + '.' + path, 'is not a valid username', data);
         }

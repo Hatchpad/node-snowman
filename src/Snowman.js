@@ -53,7 +53,7 @@ var spawnAsync = function() {
     if (resultCount == snowballArr.length) {
       if (rejected && this.snowballOptions_[this.idx_].abortOnReject) {
         if (this.onReject_) {
-          this.onReject_();
+          this.onReject_.bind(this)();
         }
       } else {
         next.bind(this)();
@@ -84,11 +84,11 @@ var next = function() {
   if (this.idx_ >= this.snowballs_.length) {
     if (this.rejected_) {
       if (this.onReject_) {
-        this.onReject_();
+        this.onReject_.bind(this)();
       }
     } else {
       if (this.onResolve_) {
-        this.onResolve_();
+        this.onResolve_.bind(this)();
       }
     }
   } else {
@@ -122,7 +122,7 @@ Snowman.prototype.exec = function(onResolve, onReject) {
 Snowman.prototype.resolve = function() {
   if (this.rejected_ && this.snowballOptions_[this.idx_].abortOnReject) {
     if (this.onReject_) {
-      this.onReject_();
+      this.onReject_.bind(this)();
     }
   } else {
     next.bind(this)();
@@ -133,7 +133,7 @@ Snowman.prototype.reject = function() {
   this.rejected_ = true;
   if (this.snowballOptions_[this.idx_].abortOnReject) {
     if (this.onReject_) {
-      this.onReject_();
+      this.onReject_.bind(this)();
     }
   } else {
     next.bind(this)();
