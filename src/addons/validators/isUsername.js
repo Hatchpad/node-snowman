@@ -17,6 +17,9 @@ module.exports = function(pathOrPaths, options) {
         if (val.length < 4) {
           err = true;
           dot.str(errorPath + '.' + path, 'is too short', data);
+        } else if (val.length > 20) {
+          err = true;
+          dot.str(errorPath + '.' + path, 'is too long', data);
         } else if (!usernameRegex.test(val)) {
           err = true;
           dot.str(errorPath + '.' + path, 'is not a valid username', data);
