@@ -19,7 +19,9 @@ describe('isEmail', function() {
         un5: 'john.doe@hatchpad.io',
         un6: 'john.doe',
         un7: '_johndoe',
-        un8: 'john$'
+        un8: 'john$',
+        un9: 'u1',
+        un10: 'u23456789012345678901'
       }
     });
     spyOn(execSpy, 'onResolve');
