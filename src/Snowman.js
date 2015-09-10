@@ -100,10 +100,7 @@ var evalIf = function() {
     }
     iff = iff.replace(match, val);
   }
-  console.log('iff ' + iff);
-  var res = eval(iff);
-  console.log('res ' + res);
-  return res;
+  return eval(iff);
 };
 
 var next = function() {
