@@ -1,3 +1,5 @@
+var dot = require('dot-object');
+
 var Snowman = function(data) {
   this.data_ = data || {};
   if (typeof this.data_ != 'object') {
@@ -22,7 +24,8 @@ Snowman.prototype.pipe = function(snowball, options) {
   } else {
     var opts = {
       abortOnReject: options && options.abortOnReject === false ? false : true,
-      skip: options && options.skip ? options.skip : null
+      skip: options && options.skip ? options.skip : null,
+      if: options && options.if ? options.if : null
     };
     this.snowballs_.push(snowball);
     this.snowballOptions_.push(opts);
@@ -34,6 +37,7 @@ Snowman.prototype.do = function(func, options) {
   var opts = {
     abortOnReject: options && options.abortOnReject === false ? false : true,
     skip: options && options.skip ? options.skip : null,
+    if: options && options.if ? options.if : null,
     do: true
   };
   this.snowballs_.push(func);
@@ -79,6 +83,29 @@ var spawnAsync = function() {
   });
 };
 
+var evalIf = function() {
+  var iff = this.snowballOptions_[this.idx_].if;
+  if (!iff) {
+    return true;
+  }
+  var reg = /{{(.+?)}}/g;
+  var matches = iff.match(reg);
+  var idx, match, prop, val;
+  for (idx in matches) {
+    match = matches[idx];
+    prop = match.substr(2, match.length - 4).trim();
+    val = dot.pick(prop, this.getData());
+    if (typeof(val) === 'string') {
+      val = '"' + val + '"';
+    }
+    iff = iff.replace(match, val);
+  }
+  console.log('iff ' + iff);
+  var res = eval(iff);
+  console.log('res ' + res);
+  return res;
+};
+
 var next = function() {
   this.idx_++;
   if (this.idx_ >= this.snowballs_.length) {
@@ -93,6 +120,8 @@ var next = function() {
     }
   } else {
     if (this.snowballOptions_[this.idx_].skip && this.snowballOptions_[this.idx_].skip.bind(this)()) {
+      next.bind(this)();
+    } else if (!evalIf.bind(this)()) {
       next.bind(this)();
     } else if (Array.isArray(this.snowballs_[this.idx_])) {
       spawnAsync.bind(this)();

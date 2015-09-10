@@ -139,6 +139,21 @@ describe('Snowman data accumulation', function() {
     });
   });
 
+  describe('if', function() {
+    it('skips correctly', function() {
+      var sm = new Snowman({person: {name: 'Bob'}});
+      sm
+      .pipe(sb1, {if:'{{person.name}} === "Bob"'})
+      .pipe(sb2)
+      .pipe(sb4, {if:'{{person.name}} === "John"'})
+      .pipe(sb5)
+      .exec(resultObj.onResolve, resultObj.onReject);
+      expect(sm.getData()).toEqual({person: {name: 'Bob'}, sb1:'test1', sb2:'test2', sb5:'test5'});
+      expect(resultObj.onResolve).toHaveBeenCalled();
+      expect(resultObj.onReject).not.toHaveBeenCalled();
+    });
+  });
+
   describe('nested snowman', function() {
     it('nests the snowman', function() {
       var snowman2 = new Snowman().pipe(sb2).pipe(sb4);
