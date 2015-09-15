@@ -1,5 +1,5 @@
 {
-  "name": "node-snowman",
+  "name": "@hatchpad/node-snowman",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,9 +11,18 @@
     "promise"
   ],
   "author": "Jason Mullins <jason.mullins@hatchpad.io> (http://www.hatchpad.io)",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "dependencies": {
     "dot-object": "^1.1.0",
     "password-strength": "0.0.1"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jasonmullins/node-snowman.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jasonmullins/node-snowman/issues"
+  },
+  "homepage": "https://github.com/jasonmullins/node-snowman#readme"
 }
