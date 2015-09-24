@@ -16,7 +16,7 @@ module.exports = function(pathOrPaths, minLength, options) {
       if (val !== null && val !== undefined) {
         if (val.length < minLength) {
           err = true;
-          dot.str(errorPath + '.' + path, 'is too short', data);
+          dot.str(errorPath + '.' + path, 'is too short (min length is ' + minLength + ')', data);
         }
       }
     });

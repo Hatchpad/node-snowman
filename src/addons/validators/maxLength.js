@@ -16,7 +16,7 @@ module.exports = function(pathOrPaths, maxLength, options) {
       if (val !== null && val !== undefined) {
         if (val.length > maxLength) {
           err = true;
-          dot.str(errorPath + '.' + path, 'is too long', data);
+          dot.str(errorPath + '.' + path, 'is too long (max length is ' + maxLength + ')', data);
         }
       }
     });

@@ -40,7 +40,7 @@ describe('minLength', function() {
     expect(execSpy.onResolve).not.toHaveBeenCalled();
     expect(execSpy.onReject).toHaveBeenCalled();
     expect(snowman.getData()._errors).toEqual({
-      un3: 'is too short'
+      un3: 'is too short (min length is 4)'
     });
   });
 });

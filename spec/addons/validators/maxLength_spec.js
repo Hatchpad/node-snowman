@@ -40,7 +40,7 @@ describe('maxLength', function() {
     expect(execSpy.onResolve).not.toHaveBeenCalled();
     expect(execSpy.onReject).toHaveBeenCalled();
     expect(snowman.getData()._errors).toEqual({
-      un5: 'is too long'
+      un5: 'is too long (max length is 4)'
     });
   });
 });
