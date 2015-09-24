@@ -41,7 +41,6 @@ describe('isPassword', function() {
     var isPassword = isPasswordValidator('pw6', {root:'_params'});
     snowman.$(isPassword).exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onResolve).toHaveBeenCalled();
-    console.log('snowman.getData() ' + JSON.stringify(snowman.getData()));
     expect(snowman.getData()._meta.pw6.valid).toBe(true);
     expect(snowman.getData()._meta.pw6.strength).toBe('simple');
   });
