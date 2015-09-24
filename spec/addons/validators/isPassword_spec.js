@@ -41,32 +41,33 @@ describe('isPassword', function() {
     var isPassword = isPasswordValidator('pw6', {root:'_params'});
     snowman.$(isPassword).exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onResolve).toHaveBeenCalled();
-    expect(snowman.getData()._meta.password.pw6.valid).toBe(true);
-    expect(snowman.getData()._meta.password.pw6.strength).toBe('simple');
+    console.log('snowman.getData() ' + JSON.stringify(snowman.getData()));
+    expect(snowman.getData()._meta.pw6.valid).toBe(true);
+    expect(snowman.getData()._meta.pw6.strength).toBe('simple');
   });
 
   it('is medium word', function() {
     var isPassword = isPasswordValidator('pw10', {root:'_params'});
     snowman.$(isPassword).exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onResolve).toHaveBeenCalled();
-    expect(snowman.getData()._meta.password.pw10.valid).toBe(true);
-    expect(snowman.getData()._meta.password.pw10.strength).toBe('medium');
+    expect(snowman.getData()._meta.pw10.valid).toBe(true);
+    expect(snowman.getData()._meta.pw10.strength).toBe('medium');
   });
 
   it('is strong word', function() {
     var isPassword = isPasswordValidator('pw8', {root:'_params'});
     snowman.$(isPassword).exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onResolve).toHaveBeenCalled();
-    expect(snowman.getData()._meta.password.pw8.valid).toBe(true);
-    expect(snowman.getData()._meta.password.pw8.strength).toBe('strong');
+    expect(snowman.getData()._meta.pw8.valid).toBe(true);
+    expect(snowman.getData()._meta.pw8.strength).toBe('strong');
   });
 
   it('is invalid', function() {
     var isPassword = isPasswordValidator('pw3', {root:'_params'});
     snowman.$(isPassword).exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onReject).toHaveBeenCalled();
-    expect(snowman.getData()._meta.password.pw3.valid).toBe(false);
-    expect(snowman.getData()._meta.password.pw3.strength).toBe('simple');
+    expect(snowman.getData()._meta.pw3.valid).toBe(false);
+    expect(snowman.getData()._meta.pw3.strength).toBe('simple');
     expect(snowman.getData()._errors.pw3).toBe('is too short');
   });
 
@@ -80,8 +81,8 @@ describe('isPassword', function() {
     var isPassword = isPasswordValidator('pw4', {root:'_params'});
     snowman.$(isPassword).exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onReject).toHaveBeenCalled();
-    expect(snowman.getData()._meta.password.pw4.valid).toBe(false);
-    expect(snowman.getData()._meta.password.pw4.strength).toBe('simple');
+    expect(snowman.getData()._meta.pw4.valid).toBe(false);
+    expect(snowman.getData()._meta.pw4.strength).toBe('simple');
     expect(snowman.getData()._errors.pw4).toBe('is too simple');
   });
 
@@ -89,8 +90,8 @@ describe('isPassword', function() {
     var isPassword = isPasswordValidator('pw5', {root:'_params', min: 6});
     snowman.$(isPassword).exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onReject).toHaveBeenCalled();
-    expect(snowman.getData()._meta.password.pw5.valid).toBe(false);
-    expect(snowman.getData()._meta.password.pw5.strength).toBe('simple');
+    expect(snowman.getData()._meta.pw5.valid).toBe(false);
+    expect(snowman.getData()._meta.pw5.strength).toBe('simple');
     expect(snowman.getData()._errors.pw5).toBe('is too short');
   });
 });
