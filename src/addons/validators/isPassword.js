@@ -5,7 +5,7 @@ module.exports = function(pathOrPaths, options) {
 
   return function() {
     var opts = options || {};
-    var root = opts.root;
+    var root = opts.root === undefined ? '_params' : opts.root;
     var errorPath = opts.errorPath || '_errors';
     var resultPath = opts.resultPath || '_meta';
     passwordStrength.min = opts.min || 4;

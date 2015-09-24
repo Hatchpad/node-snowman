@@ -4,7 +4,7 @@ module.exports = function(pathOrPaths, minLength, options) {
 
   return function() {
     var opts = options || {};
-    var root = opts.root;
+    var root = opts.root === undefined ? '_params' : opts.root;
     var errorPath = opts.errorPath || '_errors';
     var data = this.getData();
     minLength = minLength === undefined ? 4 : minLength;

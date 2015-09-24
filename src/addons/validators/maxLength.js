@@ -4,7 +4,7 @@ module.exports = function(pathOrPaths, maxLength, options) {
 
   return function() {
     var opts = options || {};
-    var root = opts.root;
+    var root = opts.root === undefined ? '_params' : opts.root;
     var errorPath = opts.errorPath || '_errors';
     var data = this.getData();
     maxLength = maxLength === undefined ? 10 : maxLength;

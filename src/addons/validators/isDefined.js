@@ -4,7 +4,7 @@ module.exports = function(pathOrPaths, options) {
 
   return function() {
     var opts = options || {};
-    var root = opts.root;
+    var root = opts.root === undefined ? '_params' : opts.root;
     var errorPath = opts.errorPath || '_errors';
     var data = this.getData();
     var paths = Array.isArray(pathOrPaths) ? pathOrPaths : [pathOrPaths];
