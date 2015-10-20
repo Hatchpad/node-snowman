@@ -90,15 +90,14 @@ var evalIf = function() {
   }
   var reg = /{{(.+?)}}/g;
   var matches = iff.match(reg);
-  var idx, match, prop, val;
+  var idx, match, prop, val, vars;
+  vars = [];
   for (idx in matches) {
     match = matches[idx];
     prop = match.substr(2, match.length - 4).trim();
     val = dot.pick(prop, this.getData());
-    if (typeof(val) === 'string') {
-      val = '"' + val + '"';
-    }
-    iff = iff.replace(match, val);
+    vars[idx] = val;
+    iff = iff.replace(match, 'vars[' + idx + ']');
   }
   return eval(iff);
 };

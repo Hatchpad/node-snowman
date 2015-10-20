@@ -152,6 +152,24 @@ describe('Snowman data accumulation', function() {
       expect(resultObj.onResolve).toHaveBeenCalled();
       expect(resultObj.onReject).not.toHaveBeenCalled();
     });
+
+    it('works with objects', function() {
+      var sm = new Snowman({_params: {arr: [{one:1}, {two:2}, {three:3}, {four:4}]}});
+      sm
+      .pipe(sb1, {if:'{{_params.arr}} !== undefined'})
+      .pipe(sb2)
+      .pipe(sb4, {if:'{{_params.arr[1]}} == {two:2}'})
+      .pipe(sb5)
+      .exec(resultObj.onResolve, resultObj.onReject);
+      expect(sm.getData()).toEqual({
+        _params: {arr: [{one:1}, {two:2}, {three:3}, {four:4}]},
+        sb1:'test1',
+        sb2:'test2',
+        sb5:'test5'
+      });
+      expect(resultObj.onResolve).toHaveBeenCalled();
+      expect(resultObj.onReject).not.toHaveBeenCalled();
+    });
   });
 
   describe('nested snowman', function() {
