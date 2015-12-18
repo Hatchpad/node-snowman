@@ -100,7 +100,6 @@ The basic idea is that a data payload will be maintained by the "Snowman". Each 
     }
   );
 ```
-```
 #### Array of snowballs
 ```
   var buildFirstName = function() {
