@@ -4,6 +4,8 @@ An easier (in my opinion) way to handle asynchronous functionality. Use in place
 
 The basic idea is that a data payload will be maintained by the "Snowman". Each "snowball" can accumulate data.
 
+This allows you to create a step by step (one line per step) execution block.
+
 ## Installation
 
 `npm install @hatchpad/node-snowman --save`
@@ -185,3 +187,41 @@ The basic idea is that a data payload will be maintained by the "Snowman". Each 
   .$(logName)
   .exec();
 ```
+#### Using "do" in order to execute a normal function
+```
+  var normalFunction = function() {
+    console.log('this function does not resolve or reject');
+  };
+  var buildFirstName = function() {
+    setTimeout(function() {
+      this.getData().firstName = 'John';
+      this.resolve();
+    }.bind(this));
+  };
+  var buildLastName = function() {
+    setTimeout(function() {
+      this.getData().lastName = 'Doe';
+      this.resolve();
+    }.bind(this));
+  };
+  var logName = function() {
+    var greeting = this.getData().greeting;
+    var firstName = this.getData().firstName;
+    var lastName = this.getData().lastName;
+    // will log "Hello, John Smith"
+    console.log(greeting + ', ' + firstName + ' ' + lastName);
+    this.resolve();
+  };
+  new Snowman({greeting: 'Hello', firstName:'Bob', lastName:'Smith'})
+  .$(buildFirstName)
+  .$(buildLastName)
+  .do(normalFunction)
+  .$(logName)
+  .exec();
+```
+### Snowball options
+| param         | Type          | Default | Description
+| ------------- |:-------------:| :------:| :------------:
+| abortOnReject | Boolean       | true    | Whether to abort execution on failure
+| if            | String        | null    | JS to be executed that should return a Boolean
+| skip          | function      | null    | Function that returns a Boolean
