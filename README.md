@@ -221,7 +221,7 @@ This allows you to create a step by step (one line per step) execution block.
 ```
 ### Snowball options
 | param         | Type          | Default | Description
-| ------------- |:-------------:| :------:| :------------:
+| ------------- |:-------------:| :------:| ------------
 | abortOnReject | Boolean       | true    | Whether to abort execution on failure
 | if            | String        | null    | JS to be executed that should return a Boolean
 | skip          | function      | null    | Function that returns a Boolean
