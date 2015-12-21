@@ -14,7 +14,7 @@ This allows you to create a step by step (one line per step) execution block.
 
 ### Include
 
-`var Snowman = require('@hatchpad/node-snowman')`
+`var Snowman = require('@hatchpad/node-snowman');`
 
 ### Examples
 #### Success
