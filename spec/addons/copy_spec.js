@@ -1,9 +1,9 @@
-var Snowman = require('../../.');
-var copy = require('../../src/addons/copy');
+const Snowman = require('../../.');
+const copy = require('../../src/addons/copy');
 
 describe('copy', function() {
 
-  var snowman, execSpy;
+  let snowman, execSpy;
 
   beforeEach(function() {
     execSpy = {
@@ -24,7 +24,7 @@ describe('copy', function() {
   });
 
   it('copies correctly', function() {
-    var cpy = copy(['o1', 'st1', 'nullObj', 'undfndObj', 'und'], '_form', {root: '_params'});
+    const cpy = copy(['o1', 'st1', 'nullObj', 'undfndObj', 'und'], '_form', {root: '_params'});
     snowman
     .pipe(cpy)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -38,7 +38,7 @@ describe('copy', function() {
   });
 
   it('copies one at a time correctly', function() {
-    var cpy = copy('st1', '_form', {root: '_params'});
+    const cpy = copy('st1', '_form', {root: '_params'});
     snowman
     .pipe(cpy)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -48,7 +48,7 @@ describe('copy', function() {
   });
 
   it('copies correctly without root option', function() {
-    var cpy = copy(['_params.o1', '_params.st1', '_params.nullObj', '_params.undfndObj', '_params.und'], '_form');
+    const cpy = copy(['_params.o1', '_params.st1', '_params.nullObj', '_params.undfndObj', '_params.und'], '_form');
     snowman
     .pipe(cpy)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -62,7 +62,7 @@ describe('copy', function() {
   });
 
   it('copies root properties correctly', function() {
-    var cpy = copy('rootProp', '_form');
+    const cpy = copy('rootProp', '_form');
     snowman
     .pipe(cpy)
     .exec(execSpy.onResolve, execSpy.onReject);

@@ -8,25 +8,25 @@ This allows you to create a step by step (one line per step) execution block.
 
 ## Installation
 
-`npm install @hatchpad/node-snowman --save`
+`npm install node-snowman --save`
 
 ## Usage
 
 ### Include
 
-`var Snowman = require('@hatchpad/node-snowman');`
+`const Snowman = require('node-snowman');`
 
 ### Examples
 #### Success
 ```
-  var buildNameAsync = function() {
+  const buildNameAsync = function() {
     setTimeout(function() {
       this.getData().firstName = 'John';
       this.getData().lastName = 'Doe';
       this.resolve();
     }.bind(this));
   };
-  var logName = function() {
+  const logName = function() {
     var greeting = this.getData().greeting;
     var firstName = this.getData().firstName;
     var lastName = this.getData().lastName;
@@ -47,12 +47,12 @@ This allows you to create a step by step (one line per step) execution block.
 ```
 #### Failure
 ```
-  var failFunc = function() {
+  const failFunc = function() {
     setTimeout(function() {
       this.reject();
     }.bind(this));
   };
-  var logName = function() {
+  const logName = function() {
     console.log('will not get here');
     this.resolve();
   };
@@ -70,19 +70,19 @@ This allows you to create a step by step (one line per step) execution block.
 ```
 #### Failure when abortOnReject === false
 ```
-  var buildNameAsync = function() {
+  const buildNameAsync = function() {
     setTimeout(function() {
       this.getData().firstName = 'John';
       this.getData().lastName = 'Doe';
       this.resolve();
     }.bind(this));
   };
-  var failFunc = function() {
+  const failFunc = function() {
     setTimeout(function() {
       this.reject();
     }.bind(this));
   };
-  var logName = function() {
+  const logName = function() {
     var greeting = this.getData().greeting;
     var firstName = this.getData().firstName;
     var lastName = this.getData().lastName;
@@ -104,19 +104,19 @@ This allows you to create a step by step (one line per step) execution block.
 ```
 #### Array of snowballs
 ```
-  var buildFirstName = function() {
+  const buildFirstName = function() {
     setTimeout(function() {
       this.getData().firstName = 'John';
       this.resolve();
     }.bind(this));
   };
-  var buildLastName = function() {
+  const buildLastName = function() {
     setTimeout(function() {
       this.getData().lastName = 'Doe';
       this.resolve();
     }.bind(this));
   };
-  var logName = function() {
+  const logName = function() {
     var greeting = this.getData().greeting;
     var firstName = this.getData().firstName;
     var lastName = this.getData().lastName;
@@ -130,19 +130,19 @@ This allows you to create a step by step (one line per step) execution block.
 ```
 #### Using "if" option to skip a snowball
 ```
-  var buildFirstName = function() {
+  const buildFirstName = function() {
     setTimeout(function() {
       this.getData().firstName = 'John';
       this.resolve();
     }.bind(this));
   };
-  var buildLastName = function() {
+  const buildLastName = function() {
     setTimeout(function() {
       this.getData().lastName = 'Doe';
       this.resolve();
     }.bind(this));
   };
-  var logName = function() {
+  const logName = function() {
     var greeting = this.getData().greeting;
     var firstName = this.getData().firstName;
     var lastName = this.getData().lastName;
@@ -158,22 +158,22 @@ This allows you to create a step by step (one line per step) execution block.
 ```
 #### Using "skip" option to skip a snowball
 ```
-  var skipFunc = function() {
+  const skipFunc = function() {
     return this.getData().firstName === 'John';
   };
-  var buildFirstName = function() {
+  const buildFirstName = function() {
     setTimeout(function() {
       this.getData().firstName = 'John';
       this.resolve();
     }.bind(this));
   };
-  var buildLastName = function() {
+  const buildLastName = function() {
     setTimeout(function() {
       this.getData().lastName = 'Doe';
       this.resolve();
     }.bind(this));
   };
-  var logName = function() {
+  const logName = function() {
     var greeting = this.getData().greeting;
     var firstName = this.getData().firstName;
     var lastName = this.getData().lastName;
@@ -189,22 +189,22 @@ This allows you to create a step by step (one line per step) execution block.
 ```
 #### Using "do" in order to execute a normal function
 ```
-  var normalFunction = function() {
+  const normalFunction = function() {
     console.log('this function does not resolve or reject');
   };
-  var buildFirstName = function() {
+  const buildFirstName = function() {
     setTimeout(function() {
       this.getData().firstName = 'John';
       this.resolve();
     }.bind(this));
   };
-  var buildLastName = function() {
+  const buildLastName = function() {
     setTimeout(function() {
       this.getData().lastName = 'Doe';
       this.resolve();
     }.bind(this));
   };
-  var logName = function() {
+  const logName = function() {
     var greeting = this.getData().greeting;
     var firstName = this.getData().firstName;
     var lastName = this.getData().lastName;

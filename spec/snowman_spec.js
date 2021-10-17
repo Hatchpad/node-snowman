@@ -1,7 +1,7 @@
-var Snowman = require('../');
+const Snowman = require('../');
 
 describe('Snowman Init', function() {
-  var snowman;
+  let snowman;
 
   it('should initialize the data to empty object', function () {
     snowman = new Snowman();
@@ -19,7 +19,7 @@ describe('Snowman Init', function() {
 });
 
 describe('Snowman data accumulation', function() {
-  var sb1, sb2, resultObj;
+  let sb1, sb2, resultObj;
 
   beforeEach(function() {
     resultObj = {
@@ -124,7 +124,7 @@ describe('Snowman data accumulation', function() {
 
   describe('skip', function() {
     it('skips correctly', function() {
-      var skipFunc = function() {
+      const skipFunc = function() {
         return this.getData().sb2 === 'test2';
       };
       snowman
@@ -141,7 +141,7 @@ describe('Snowman data accumulation', function() {
 
   describe('if', function() {
     it('skips correctly', function() {
-      var sm = new Snowman({person: {name: 'Bob'}});
+      const sm = new Snowman({person: {name: 'Bob'}});
       sm
       .pipe(sb1, {if:'{{person.name}} === "Bob"'})
       .pipe(sb2)
@@ -154,7 +154,7 @@ describe('Snowman data accumulation', function() {
     });
 
     it('works with objects', function() {
-      var sm = new Snowman({_params: {arr: [{one:1}, {two:2}, {three:3}, {four:4}]}});
+      const sm = new Snowman({_params: {arr: [{one:1}, {two:2}, {three:3}, {four:4}]}});
       sm
       .pipe(sb1, {if:'{{_params.arr}} !== undefined'})
       .pipe(sb2)
@@ -174,7 +174,7 @@ describe('Snowman data accumulation', function() {
 
   describe('nested snowman', function() {
     it('nests the snowman', function() {
-      var snowman2 = new Snowman().pipe(sb2).pipe(sb4);
+      const snowman2 = new Snowman().pipe(sb2).pipe(sb4);
       snowman
       .pipe(sb1)
       .pipe(snowman2)
@@ -188,10 +188,10 @@ describe('Snowman data accumulation', function() {
 
   describe('do', function() {
     it('executes do functions', function() {
-      var spyObj = {
+      const spyObj = {
         doIt: function() {}
       };
-      var doFunc = function() {
+      const doFunc = function() {
         spyObj.doIt();
       };
       spyOn(spyObj, 'doIt');

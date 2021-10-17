@@ -1,9 +1,9 @@
-var Snowman = require('../../../.');
-var isUsernameValidator = require('../../../src/addons/validators/isUsername');
+const Snowman = require('../../../.');
+const isUsernameValidator = require('../../../src/addons/validators/isUsername');
 
 describe('isEmail', function() {
 
-  var snowman, execSpy;
+  let snowman, execSpy;
 
   beforeEach(function() {
     execSpy = {
@@ -29,7 +29,7 @@ describe('isEmail', function() {
   });
 
   it('succeeds', function() {
-    var isUsername = isUsernameValidator(['un1', 'un2', 'un3', 'un4'], {root:'_params'});
+    const isUsername = isUsernameValidator(['un1', 'un2', 'un3', 'un4'], {root:'_params'});
     snowman
     .pipe(isUsername)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -38,7 +38,7 @@ describe('isEmail', function() {
   });
 
   it('fails', function() {
-    var isUsername = isUsernameValidator(['un1', 'un2', 'un3', 'un4', 'un5', 'un6', 'un7', 'un8'], {root:'_params'});
+    const isUsername = isUsernameValidator(['un1', 'un2', 'un3', 'un4', 'un5', 'un6', 'un7', 'un8'], {root:'_params'});
     snowman
     .pipe(isUsername)
     .exec(execSpy.onResolve, execSpy.onReject);

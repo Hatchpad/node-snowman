@@ -1,9 +1,9 @@
-var Snowman = require('../../../.');
-var isDefinedAndNotNullValidator = require('../../../src/addons/validators/isDefinedAndNotNull');
+const Snowman = require('../../../.');
+const isDefinedAndNotNullValidator = require('../../../src/addons/validators/isDefinedAndNotNull');
 
 describe('isDefinedAndNotNull', function() {
 
-  var snowman, execSpy;
+  let snowman, execSpy;
 
   beforeEach(function() {
     execSpy = {
@@ -29,7 +29,7 @@ describe('isDefinedAndNotNull', function() {
   });
 
   it('succeeds', function() {
-    var isDefinedAndNotNull = isDefinedAndNotNullValidator(['username', 'email', 'company.name', 'age', 'felonies'], {root:'_params'});
+    const isDefinedAndNotNull = isDefinedAndNotNullValidator(['username', 'email', 'company.name', 'age', 'felonies'], {root:'_params'});
     snowman
     .pipe(isDefinedAndNotNull)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -38,7 +38,7 @@ describe('isDefinedAndNotNull', function() {
   });
 
   it('succeeds without root', function() {
-    var isDefinedAndNotNull = isDefinedAndNotNullValidator(['_params.username', '_params.email', '_params.company.name', '_params.age', '_params.felonies']);
+    const isDefinedAndNotNull = isDefinedAndNotNullValidator(['_params.username', '_params.email', '_params.company.name', '_params.age', '_params.felonies']);
     snowman
     .pipe(isDefinedAndNotNull)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -47,7 +47,7 @@ describe('isDefinedAndNotNull', function() {
   });
 
   it('succeeds when the field is empty string', function() {
-    var isDefinedAndNotNull = isDefinedAndNotNullValidator(['fname'], {root:'_params'});
+    const isDefinedAndNotNull = isDefinedAndNotNullValidator(['fname'], {root:'_params'});
     snowman
     .pipe(isDefinedAndNotNull)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -56,7 +56,7 @@ describe('isDefinedAndNotNull', function() {
   });
 
   it('fails when the field is null', function() {
-    var isDefinedAndNotNull = isDefinedAndNotNullValidator(['ssn'], {root:'_params'});
+    const isDefinedAndNotNull = isDefinedAndNotNullValidator(['ssn'], {root:'_params'});
     snowman
     .pipe(isDefinedAndNotNull)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -66,7 +66,7 @@ describe('isDefinedAndNotNull', function() {
   });
 
   it('fails when the field is undefined', function() {
-    var isDefinedAndNotNull = isDefinedAndNotNullValidator(['dob'], {root:'_params'});
+    const isDefinedAndNotNull = isDefinedAndNotNullValidator(['dob'], {root:'_params'});
     snowman
     .pipe(isDefinedAndNotNull)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -76,7 +76,7 @@ describe('isDefinedAndNotNull', function() {
   });
 
   it('fails when the field is undefined and not present', function() {
-    var isDefinedAndNotNull = isDefinedAndNotNullValidator(['random'], {root:'_params'});
+    const isDefinedAndNotNull = isDefinedAndNotNullValidator(['random'], {root:'_params'});
     snowman
     .pipe(isDefinedAndNotNull)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -86,7 +86,7 @@ describe('isDefinedAndNotNull', function() {
   });
 
   it('fails when the field is undefined and not present and nested', function() {
-    var isDefinedAndNotNull = isDefinedAndNotNullValidator(['random.data'], {root:'_params'});
+    const isDefinedAndNotNull = isDefinedAndNotNullValidator(['random.data'], {root:'_params'});
     snowman
     .pipe(isDefinedAndNotNull)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -96,7 +96,7 @@ describe('isDefinedAndNotNull', function() {
   });
 
   it('puts the errors in a custom place', function() {
-    var isDefinedAndNotNull = isDefinedAndNotNullValidator(['ssn'], {root:'_params', errorPath: 'errMap'});
+    const isDefinedAndNotNull = isDefinedAndNotNullValidator(['ssn'], {root:'_params', errorPath: 'errMap'});
     snowman
     .pipe(isDefinedAndNotNull)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -106,7 +106,7 @@ describe('isDefinedAndNotNull', function() {
   });
 
   it('generates errors for multiple fields', function() {
-    var isDefinedAndNotNull = isDefinedAndNotNullValidator(['username', 'ssn', 'email', 'dob', 'fname'], {root:'_params'});
+    const isDefinedAndNotNull = isDefinedAndNotNullValidator(['username', 'ssn', 'email', 'dob', 'fname'], {root:'_params'});
     snowman
     .pipe(isDefinedAndNotNull)
     .exec(execSpy.onResolve, execSpy.onReject);

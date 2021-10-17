@@ -1,9 +1,9 @@
-var Snowman = require('../../../.');
-var isObjectValidator = require('../../../src/addons/validators/isObject');
+const Snowman = require('../../../.');
+const isObjectValidator = require('../../../src/addons/validators/isObject');
 
 describe('isObject', function() {
 
-  var snowman, execSpy;
+  let snowman, execSpy;
 
   beforeEach(function() {
     execSpy = {
@@ -26,7 +26,7 @@ describe('isObject', function() {
   });
 
   it('succeeds', function() {
-    var isEmail = isObjectValidator(['em1', 'em2', 'em6', 'em7'], {root:'_params'});
+    const isEmail = isObjectValidator(['em1', 'em2', 'em6', 'em7'], {root:'_params'});
     snowman
     .pipe(isEmail)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -35,7 +35,7 @@ describe('isObject', function() {
   });
 
   it('fails for string', function() {
-    var isEmail = isObjectValidator(['em3'], {root:'_params'});
+    const isEmail = isObjectValidator(['em3'], {root:'_params'});
     snowman
     .pipe(isEmail)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -45,7 +45,7 @@ describe('isObject', function() {
   });
 
   it('fails for number', function() {
-    var isEmail = isObjectValidator(['em4'], {root:'_params'});
+    const isEmail = isObjectValidator(['em4'], {root:'_params'});
     snowman
     .pipe(isEmail)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -55,7 +55,7 @@ describe('isObject', function() {
   });
 
   it('fails for array', function() {
-    var isEmail = isObjectValidator(['em8'], {root:'_params'});
+    const isEmail = isObjectValidator(['em8'], {root:'_params'});
     snowman
     .pipe(isEmail)
     .exec(execSpy.onResolve, execSpy.onReject);

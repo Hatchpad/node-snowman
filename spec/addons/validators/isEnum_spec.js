@@ -1,9 +1,9 @@
-var Snowman = require('../../../.');
-var isEnumValidator = require('../../../src/addons/validators/isEnum');
+const Snowman = require('../../../.');
+const isEnumValidator = require('../../../src/addons/validators/isEnum');
 
 describe('isEnum', function() {
 
-  var snowman, execSpy;
+  let snowman, execSpy;
 
   beforeEach(function() {
     execSpy = {
@@ -32,8 +32,8 @@ describe('isEnum', function() {
   });
 
   it('succeeds', function() {
-    var en = ['three', 'five', 8];
-    var isEnum = isEnumValidator(['n3', 'n5', 'n8'], en, {root:'_params'});
+    const en = ['three', 'five', 8];
+    const isEnum = isEnumValidator(['n3', 'n5', 'n8'], en, {root:'_params'});
     snowman
     .pipe(isEnum)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -42,8 +42,8 @@ describe('isEnum', function() {
   });
 
   it('fails', function() {
-    var en = ['three', 'five', 8];
-    var isEnum = isEnumValidator(['n1', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7', 'n8'], en, {root:'_params'});
+    const en = ['three', 'five', 8];
+    const isEnum = isEnumValidator(['n1', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7', 'n8'], en, {root:'_params'});
     snowman
     .pipe(isEnum)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -57,11 +57,11 @@ describe('isEnum', function() {
   });
 
   it('succeeds with equals param', function() {
-    var en = ['cat', 'dog'];
-    var equals = function(value, enumValue) {
+    const en = ['cat', 'dog'];
+    const equals = function(value, enumValue) {
       return value.type === enumValue;
     };
-    var isEnum = isEnumValidator(['o1', 'o2', 'o4'], en, {root:'_params', equals:equals});
+    const isEnum = isEnumValidator(['o1', 'o2', 'o4'], en, {root:'_params', equals:equals});
     snowman
     .pipe(isEnum)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -70,11 +70,11 @@ describe('isEnum', function() {
   });
 
   it('fails with equals param', function() {
-    var en = ['cat', 'dog', 8];
-    var equals = function(value, enumValue) {
+    const en = ['cat', 'dog', 8];
+    const equals = function(value, enumValue) {
       return value.type === enumValue;
     };
-    var isEnum = isEnumValidator(['o1', 'o2', 'o3', 'o4', 'o5'], en, {root:'_params', equals:equals});
+    const isEnum = isEnumValidator(['o1', 'o2', 'o3', 'o4', 'o5'], en, {root:'_params', equals:equals});
     snowman
     .pipe(isEnum)
     .exec(execSpy.onResolve, execSpy.onReject);

@@ -1,9 +1,9 @@
-var Snowman = require('../../../.');
-var isNumberValidator = require('../../../src/addons/validators/isNumber');
+const Snowman = require('../../../.');
+const isNumberValidator = require('../../../src/addons/validators/isNumber');
 
 describe('isNumber', function() {
 
-  var snowman, execSpy;
+  let snowman, execSpy;
 
   beforeEach(function() {
     execSpy = {
@@ -29,7 +29,7 @@ describe('isNumber', function() {
   });
 
   it('succeeds', function() {
-    var isNumber = isNumberValidator(['n1', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7'], {root:'_params'});
+    const isNumber = isNumberValidator(['n1', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7'], {root:'_params'});
     snowman
     .pipe(isNumber)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -38,7 +38,7 @@ describe('isNumber', function() {
   });
 
   it('fails', function() {
-    var isNumber = isNumberValidator(['n1', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7', 'n8', 'n9', 'n10'], {root:'_params'});
+    const isNumber = isNumberValidator(['n1', 'n2', 'n3', 'n4', 'n5', 'n6', 'n7', 'n8', 'n9', 'n10'], {root:'_params'});
     snowman
     .pipe(isNumber)
     .exec(execSpy.onResolve, execSpy.onReject);

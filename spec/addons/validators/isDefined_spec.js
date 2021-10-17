@@ -1,9 +1,9 @@
-var Snowman = require('../../../.');
-var isDefinedValidator = require('../../../src/addons/validators/isDefined');
+const Snowman = require('../../../.');
+const isDefinedValidator = require('../../../src/addons/validators/isDefined');
 
 describe('isDefined', function() {
 
-  var snowman, execSpy;
+  let snowman, execSpy;
 
   beforeEach(function() {
     execSpy = {
@@ -29,7 +29,7 @@ describe('isDefined', function() {
   });
 
   it('succeeds', function() {
-    var isDefined = isDefinedValidator(['username', 'email', 'company.name', 'age', 'felonies'], {root:'_params'});
+    const isDefined = isDefinedValidator(['username', 'email', 'company.name', 'age', 'felonies'], {root:'_params'});
     snowman
     .pipe(isDefined)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -38,7 +38,7 @@ describe('isDefined', function() {
   });
 
   it('succeeds without root', function() {
-    var isDefined = isDefinedValidator(['_params.username', '_params.email', '_params.company.name', '_params.age', '_params.felonies']);
+    const isDefined = isDefinedValidator(['_params.username', '_params.email', '_params.company.name', '_params.age', '_params.felonies']);
     snowman
     .pipe(isDefined)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -47,7 +47,7 @@ describe('isDefined', function() {
   });
 
   it('succeeds when the field is empty string', function() {
-    var isDefined = isDefinedValidator(['fname'], {root:'_params'});
+    const isDefined = isDefinedValidator(['fname'], {root:'_params'});
     snowman
     .pipe(isDefined)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -56,7 +56,7 @@ describe('isDefined', function() {
   });
 
   it('succeeds when the field is null', function() {
-    var isDefined = isDefinedValidator(['ssn'], {root:'_params'});
+    const isDefined = isDefinedValidator(['ssn'], {root:'_params'});
     snowman
     .pipe(isDefined)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -65,7 +65,7 @@ describe('isDefined', function() {
   });
 
   it('fails when the field is undefined', function() {
-    var isDefined = isDefinedValidator(['dob'], {root:'_params'});
+    const isDefined = isDefinedValidator(['dob'], {root:'_params'});
     snowman
     .pipe(isDefined)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -75,7 +75,7 @@ describe('isDefined', function() {
   });
 
   it('fails when the field is undefined and not present', function() {
-    var isDefined = isDefinedValidator(['random'], {root:'_params'});
+    const isDefined = isDefinedValidator(['random'], {root:'_params'});
     snowman
     .pipe(isDefined)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -85,7 +85,7 @@ describe('isDefined', function() {
   });
 
   it('fails when the field is undefined and not present and nested', function() {
-    var isDefined = isDefinedValidator(['random.data'], {root:'_params'});
+    const isDefined = isDefinedValidator(['random.data'], {root:'_params'});
     snowman
     .pipe(isDefined)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -95,7 +95,7 @@ describe('isDefined', function() {
   });
 
   it('puts the errors in a custom place', function() {
-    var isDefined = isDefinedValidator(['dob'], {root:'_params', errorPath: 'errMap'});
+    const isDefined = isDefinedValidator(['dob'], {root:'_params', errorPath: 'errMap'});
     snowman
     .pipe(isDefined)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -105,7 +105,7 @@ describe('isDefined', function() {
   });
 
   it('generates errors for multiple fields', function() {
-    var isDefined = isDefinedValidator(['username', 'ssn', 'email', 'dob', 'fname', 'not_present'], {root:'_params'});
+    const isDefined = isDefinedValidator(['username', 'ssn', 'email', 'dob', 'fname', 'not_present'], {root:'_params'});
     snowman
     .pipe(isDefined)
     .exec(execSpy.onResolve, execSpy.onReject);

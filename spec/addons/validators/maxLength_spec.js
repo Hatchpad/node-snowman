@@ -1,9 +1,9 @@
-var Snowman = require('../../../.');
-var maxLengthValidator = require('../../../src/addons/validators/maxLength');
+const Snowman = require('../../../.');
+const maxLengthValidator = require('../../../src/addons/validators/maxLength');
 
 describe('maxLength', function() {
 
-  var snowman, execSpy;
+  let snowman, execSpy;
 
   beforeEach(function() {
     execSpy = {
@@ -24,7 +24,7 @@ describe('maxLength', function() {
   });
 
   it('succeeds', function() {
-    var maxLength = maxLengthValidator(['un1', 'un2', 'un4', 'u5'], 4, {root:'_params'});
+    const maxLength = maxLengthValidator(['un1', 'un2', 'un4', 'u5'], 4, {root:'_params'});
     snowman
     .pipe(maxLength)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -33,7 +33,7 @@ describe('maxLength', function() {
   });
 
   it('fails', function() {
-    var maxLength = maxLengthValidator(['un1', 'un2', 'un3', 'un4', 'un5'], 4, {root:'_params'});
+    const maxLength = maxLengthValidator(['un1', 'un2', 'un3', 'un4', 'un5'], 4, {root:'_params'});
     snowman
     .pipe(maxLength)
     .exec(execSpy.onResolve, execSpy.onReject);

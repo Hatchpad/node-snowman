@@ -1,9 +1,9 @@
-var Snowman = require('../../../.');
-var minLengthValidator = require('../../../src/addons/validators/minLength');
+const Snowman = require('../../../.');
+const minLengthValidator = require('../../../src/addons/validators/minLength');
 
 describe('minLength', function() {
 
-  var snowman, execSpy;
+  let snowman, execSpy;
 
   beforeEach(function() {
     execSpy = {
@@ -24,7 +24,7 @@ describe('minLength', function() {
   });
 
   it('succeeds', function() {
-    var minLength = minLengthValidator(['un1', 'un2', 'u5'], 4, {root:'_params'});
+    const minLength = minLengthValidator(['un1', 'un2', 'u5'], 4, {root:'_params'});
     snowman
     .pipe(minLength)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -33,7 +33,7 @@ describe('minLength', function() {
   });
 
   it('fails', function() {
-    var minLength = minLengthValidator(['un1', 'un2', 'un3', 'un4', 'un5'], 4, {root:'_params'});
+    const minLength = minLengthValidator(['un1', 'un2', 'un3', 'un4', 'un5'], 4, {root:'_params'});
     snowman
     .pipe(minLength)
     .exec(execSpy.onResolve, execSpy.onReject);

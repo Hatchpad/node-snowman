@@ -1,9 +1,9 @@
-var Snowman = require('../../../.');
-var toBooleanConverter = require('../../../src/addons/converters/toBoolean');
+const Snowman = require('../../../.');
+const toBooleanConverter = require('../../../src/addons/converters/toBoolean');
 
 describe('toBoolean', function() {
 
-  var snowman, execSpy;
+  let snowman, execSpy;
 
   beforeEach(function() {
     execSpy = {
@@ -25,7 +25,7 @@ describe('toBoolean', function() {
   });
 
   it('converts boolean true correctly for 1 field', function() {
-    var toBoolean = toBooleanConverter(
+    const toBoolean = toBooleanConverter(
       'b1',
       {root:'_params'}
     );
@@ -38,7 +38,7 @@ describe('toBoolean', function() {
   });
 
   it('converts string true correctly for 1 field', function() {
-    var toBoolean = toBooleanConverter(
+    const toBoolean = toBooleanConverter(
       'b2',
       {root:'_params'}
     );
@@ -51,7 +51,7 @@ describe('toBoolean', function() {
   });
 
   it('converts boolean false correctly for 1 field', function() {
-    var toBoolean = toBooleanConverter(
+    const toBoolean = toBooleanConverter(
       'b3',
       {root:'_params'}
     );
@@ -64,7 +64,7 @@ describe('toBoolean', function() {
   });
 
   it('converts string false correctly for 1 field', function() {
-    var toBoolean = toBooleanConverter(
+    const toBoolean = toBooleanConverter(
       'b4',
       {root:'_params'}
     );
@@ -77,7 +77,7 @@ describe('toBoolean', function() {
   });
 
   it('converts correctly for multiple field', function() {
-    var toBoolean = toBooleanConverter(
+    const toBoolean = toBooleanConverter(
       ['b1', 'b2', 'b3', 'b4'],
       {root:'_params'}
     );
@@ -93,7 +93,7 @@ describe('toBoolean', function() {
   });
 
   it('converts boolean true correctly for 1 field with from and to', function() {
-    var toBoolean = toBooleanConverter(
+    const toBoolean = toBooleanConverter(
       {from:'_params.b1', to:'out.b1'}
     );
     snowman
@@ -105,7 +105,7 @@ describe('toBoolean', function() {
   });
 
   it('converts string true correctly for 1 field with from and to', function() {
-    var toBoolean = toBooleanConverter(
+    const toBoolean = toBooleanConverter(
       {from:'_params.b2', to:'out.b2'}
     );
     snowman
@@ -118,7 +118,7 @@ describe('toBoolean', function() {
   });
 
   it('converts correctly for array with from and to', function() {
-    var toBoolean = toBooleanConverter(
+    const toBoolean = toBooleanConverter(
       [
         {from:'_params.b1', to:'out.b1'},
         {from:'_params.b2', to:'out.b2'}

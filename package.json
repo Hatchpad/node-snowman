@@ -1,10 +1,10 @@
 {
-  "name": "@hatchpad/node-snowman",
-  "version": "1.0.9",
+  "name": "node-snowman",
+  "version": "1.0.10",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jasmine"
   },
   "keywords": [
     "callback",
@@ -13,7 +13,7 @@
   "author": "Jason Mullins <jason.mullins@hatchpad.io> (http://www.hatchpad.io)",
   "license": "Apache-2.0",
   "dependencies": {
-    "dot-object": "^1.1.0",
+    "dot-object": "2.1.4",
     "password-strength": "0.0.1"
   },
   "devDependencies": {},

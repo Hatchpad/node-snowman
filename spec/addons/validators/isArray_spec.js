@@ -1,9 +1,9 @@
-var Snowman = require('../../../.');
-var isArrayValidator = require('../../../src/addons/validators/isArray');
+const Snowman = require('../../../.');
+const isArrayValidator = require('../../../src/addons/validators/isArray');
 
 describe('isArray', function() {
 
-  var snowman, execSpy;
+  let snowman, execSpy;
 
   beforeEach(function() {
     execSpy = {
@@ -29,7 +29,7 @@ describe('isArray', function() {
   });
 
   it('succeeds', function() {
-    var isArray = isArrayValidator(['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7'], {root:'_params'});
+    const isArray = isArrayValidator(['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7'], {root:'_params'});
     snowman
     .pipe(isArray)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -38,7 +38,7 @@ describe('isArray', function() {
   });
 
   it('fails', function() {
-    var isArray = isArrayValidator(['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8', 'a9', 'a10'], {root:'_params'});
+    const isArray = isArrayValidator(['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8', 'a9', 'a10'], {root:'_params'});
     snowman
     .pipe(isArray)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -52,7 +52,7 @@ describe('isArray', function() {
   });
 
   it('succeeds with length', function() {
-    var isArray = isArrayValidator(['a5'], {root:'_params', length:4});
+    const isArray = isArrayValidator(['a5'], {root:'_params', length:4});
     snowman
     .pipe(isArray)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -61,7 +61,7 @@ describe('isArray', function() {
   });
 
   it('fails with length', function() {
-    var isArray = isArrayValidator(['a4', 'a5'], {root:'_params', length: 4});
+    const isArray = isArrayValidator(['a4', 'a5'], {root:'_params', length: 4});
     snowman
     .pipe(isArray)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -73,7 +73,7 @@ describe('isArray', function() {
   });
 
   it('succeeds with maxLength', function() {
-    var isArray = isArrayValidator(['a1', 'a2', 'a3', 'a4', 'a5', 'a6'], {root:'_params', maxLength:5});
+    const isArray = isArrayValidator(['a1', 'a2', 'a3', 'a4', 'a5', 'a6'], {root:'_params', maxLength:5});
     snowman
     .pipe(isArray)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -82,7 +82,7 @@ describe('isArray', function() {
   });
 
   it('fails with maxLength', function() {
-    var isArray = isArrayValidator(['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7'], {root:'_params', maxLength: 5});
+    const isArray = isArrayValidator(['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7'], {root:'_params', maxLength: 5});
     snowman
     .pipe(isArray)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -94,7 +94,7 @@ describe('isArray', function() {
   });
 
   it('succeeds with minLength', function() {
-    var isArray = isArrayValidator(['a1', 'a2', 'a5', 'a6', 'a7'], {root:'_params', minLength:4});
+    const isArray = isArrayValidator(['a1', 'a2', 'a5', 'a6', 'a7'], {root:'_params', minLength:4});
     snowman
     .pipe(isArray)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -103,7 +103,7 @@ describe('isArray', function() {
   });
 
   it('fails with minLength', function() {
-    var isArray = isArrayValidator(['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7'], {root:'_params', minLength: 4});
+    const isArray = isArrayValidator(['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7'], {root:'_params', minLength: 4});
     snowman
     .pipe(isArray)
     .exec(execSpy.onResolve, execSpy.onReject);

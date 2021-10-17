@@ -1,9 +1,9 @@
-var Snowman = require('../../../.');
-var isRequiredValidator = require('../../../src/addons/validators/isRequired');
+const Snowman = require('../../../.');
+const isRequiredValidator = require('../../../src/addons/validators/isRequired');
 
 describe('isRequired', function() {
 
-  var snowman, execSpy;
+  let snowman, execSpy;
 
   beforeEach(function() {
     execSpy = {
@@ -29,7 +29,7 @@ describe('isRequired', function() {
   });
 
   it('succeeds', function() {
-    var isRequired = isRequiredValidator(['username', 'email', 'company.name', 'age', 'felonies'], {root:'_params'});
+    const isRequired = isRequiredValidator(['username', 'email', 'company.name', 'age', 'felonies'], {root:'_params'});
     snowman
     .pipe(isRequired)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -38,7 +38,7 @@ describe('isRequired', function() {
   });
 
   it('succeeds without root', function() {
-    var isRequired = isRequiredValidator(['_params.username', '_params.email', '_params.company.name', '_params.age', '_params.felonies'], {root: null});
+    const isRequired = isRequiredValidator(['_params.username', '_params.email', '_params.company.name', '_params.age', '_params.felonies'], {root: null});
     snowman
     .pipe(isRequired)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -47,7 +47,7 @@ describe('isRequired', function() {
   });
 
   it('fails when the field is empty string', function() {
-    var isRequired = isRequiredValidator(['fname'], {root:'_params'});
+    const isRequired = isRequiredValidator(['fname'], {root:'_params'});
     snowman
     .pipe(isRequired)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -57,7 +57,7 @@ describe('isRequired', function() {
   });
 
   it('fails when the field is null', function() {
-    var isRequired = isRequiredValidator(['ssn'], {root:'_params'});
+    const isRequired = isRequiredValidator(['ssn'], {root:'_params'});
     snowman
     .pipe(isRequired)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -67,7 +67,7 @@ describe('isRequired', function() {
   });
 
   it('fails when the field is undefined', function() {
-    var isRequired = isRequiredValidator(['dob'], {root:'_params'});
+    const isRequired = isRequiredValidator(['dob'], {root:'_params'});
     snowman
     .pipe(isRequired)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -77,7 +77,7 @@ describe('isRequired', function() {
   });
 
   it('fails when the field is undefined and not present', function() {
-    var isRequired = isRequiredValidator(['random'], {root:'_params'});
+    const isRequired = isRequiredValidator(['random'], {root:'_params'});
     snowman
     .pipe(isRequired)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -87,7 +87,7 @@ describe('isRequired', function() {
   });
 
   it('fails when the field is undefined and not present and nested', function() {
-    var isRequired = isRequiredValidator(['random.data'], {root:'_params'});
+    const isRequired = isRequiredValidator(['random.data'], {root:'_params'});
     snowman
     .pipe(isRequired)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -97,7 +97,7 @@ describe('isRequired', function() {
   });
 
   it('puts the errors in a custom place', function() {
-    var isRequired = isRequiredValidator(['ssn'], {root:'_params', errorPath: 'errMap'});
+    const isRequired = isRequiredValidator(['ssn'], {root:'_params', errorPath: 'errMap'});
     snowman
     .pipe(isRequired)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -107,7 +107,7 @@ describe('isRequired', function() {
   });
 
   it('generates errors for multiple fields', function() {
-    var isRequired = isRequiredValidator(['username', 'ssn', 'email', 'dob', 'fname'], {root:'_params'});
+    const isRequired = isRequiredValidator(['username', 'ssn', 'email', 'dob', 'fname'], {root:'_params'});
     snowman
     .pipe(isRequired)
     .exec(execSpy.onResolve, execSpy.onReject);

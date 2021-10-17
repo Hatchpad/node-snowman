@@ -1,9 +1,9 @@
-var Snowman = require('../../../.');
-var isPasswordValidator = require('../../../src/addons/validators/isPassword');
+const Snowman = require('../../../.');
+const isPasswordValidator = require('../../../src/addons/validators/isPassword');
 
 describe('isPassword', function() {
 
-  var snowman, execSpy;
+  let snowman, execSpy;
 
   beforeEach(function() {
     execSpy = {
@@ -29,7 +29,7 @@ describe('isPassword', function() {
   });
 
   it('succeeds', function() {
-    var isPassword = isPasswordValidator(['pw6', 'pw7', 'pw8'], {root:'_params'});
+    const isPassword = isPasswordValidator(['pw6', 'pw7', 'pw8'], {root:'_params'});
     snowman
     .pipe(isPassword)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -38,7 +38,7 @@ describe('isPassword', function() {
   });
 
   it('is simple word', function() {
-    var isPassword = isPasswordValidator('pw6', {root:'_params'});
+    const isPassword = isPasswordValidator('pw6', {root:'_params'});
     snowman.$(isPassword).exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onResolve).toHaveBeenCalled();
     expect(snowman.getData()._meta.pw6.valid).toBe(true);
@@ -46,7 +46,7 @@ describe('isPassword', function() {
   });
 
   it('is medium word', function() {
-    var isPassword = isPasswordValidator('pw10', {root:'_params'});
+    const isPassword = isPasswordValidator('pw10', {root:'_params'});
     snowman.$(isPassword).exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onResolve).toHaveBeenCalled();
     expect(snowman.getData()._meta.pw10.valid).toBe(true);
@@ -54,7 +54,7 @@ describe('isPassword', function() {
   });
 
   it('is strong word', function() {
-    var isPassword = isPasswordValidator('pw8', {root:'_params'});
+    const isPassword = isPasswordValidator('pw8', {root:'_params'});
     snowman.$(isPassword).exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onResolve).toHaveBeenCalled();
     expect(snowman.getData()._meta.pw8.valid).toBe(true);
@@ -62,7 +62,7 @@ describe('isPassword', function() {
   });
 
   it('is invalid', function() {
-    var isPassword = isPasswordValidator('pw3', {root:'_params'});
+    const isPassword = isPasswordValidator('pw3', {root:'_params'});
     snowman.$(isPassword).exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onReject).toHaveBeenCalled();
     expect(snowman.getData()._meta.pw3.valid).toBe(false);
@@ -71,13 +71,13 @@ describe('isPassword', function() {
   });
 
   it('ignores undefined', function() {
-    var isPassword = isPasswordValidator('pw2', {root:'_params'});
+    const isPassword = isPasswordValidator('pw2', {root:'_params'});
     snowman.$(isPassword).exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onResolve).toHaveBeenCalled();
   });
 
   it('is invalid', function() {
-    var isPassword = isPasswordValidator('pw4', {root:'_params'});
+    const isPassword = isPasswordValidator('pw4', {root:'_params'});
     snowman.$(isPassword).exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onReject).toHaveBeenCalled();
     expect(snowman.getData()._meta.pw4.valid).toBe(false);
@@ -86,7 +86,7 @@ describe('isPassword', function() {
   });
 
   it('is invalid by setting min manually', function() {
-    var isPassword = isPasswordValidator('pw5', {root:'_params', min: 6});
+    const isPassword = isPasswordValidator('pw5', {root:'_params', min: 6});
     snowman.$(isPassword).exec(execSpy.onResolve, execSpy.onReject);
     expect(execSpy.onReject).toHaveBeenCalled();
     expect(snowman.getData()._meta.pw5.valid).toBe(false);

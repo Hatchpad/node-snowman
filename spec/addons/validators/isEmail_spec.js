@@ -1,9 +1,9 @@
-var Snowman = require('../../../.');
-var isEmailValidator = require('../../../src/addons/validators/isEmail');
+const Snowman = require('../../../.');
+const isEmailValidator = require('../../../src/addons/validators/isEmail');
 
 describe('isEmail', function() {
 
-  var snowman, execSpy;
+  let snowman, execSpy;
 
   beforeEach(function() {
     execSpy = {
@@ -24,7 +24,7 @@ describe('isEmail', function() {
   });
 
   it('succeeds', function() {
-    var isEmail = isEmailValidator(['em1', 'em2', 'em3', 'em4'], {root:'_params'});
+    const isEmail = isEmailValidator(['em1', 'em2', 'em3', 'em4'], {root:'_params'});
     snowman
     .pipe(isEmail)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -33,7 +33,7 @@ describe('isEmail', function() {
   });
 
   it('fails', function() {
-    var isEmail = isEmailValidator(['em1', 'em2', 'em3', 'em4', 'em5'], {root:'_params'});
+    const isEmail = isEmailValidator(['em1', 'em2', 'em3', 'em4', 'em5'], {root:'_params'});
     snowman
     .pipe(isEmail)
     .exec(execSpy.onResolve, execSpy.onReject);

@@ -1,9 +1,9 @@
-var Snowman = require('../../../.');
-var isDateValidator = require('../../../src/addons/validators/isDate');
+const Snowman = require('../../../.');
+const isDateValidator = require('../../../src/addons/validators/isDate');
 
 describe('isDate', function() {
 
-  var snowman, execSpy;
+  let snowman, execSpy;
 
   beforeEach(function() {
     execSpy = {
@@ -25,7 +25,7 @@ describe('isDate', function() {
   });
 
   it('succeeds', function() {
-    var isDate = isDateValidator(['n1', 'n2', 'n3', 'n4'], {root:'_params'});
+    const isDate = isDateValidator(['n1', 'n2', 'n3', 'n4'], {root:'_params'});
     snowman
     .pipe(isDate)
     .exec(execSpy.onResolve, execSpy.onReject);
@@ -34,7 +34,7 @@ describe('isDate', function() {
   });
 
   it('fails', function() {
-    var isDate = isDateValidator(['n1', 'n2', 'n3', 'n4', 'n5', 'n6'], {root:'_params'});
+    const isDate = isDateValidator(['n1', 'n2', 'n3', 'n4', 'n5', 'n6'], {root:'_params'});
     snowman
     .pipe(isDate)
     .exec(execSpy.onResolve, execSpy.onReject);
